@@ -5,6 +5,7 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 
 // @route GET api/auth
 // @desc checks if the current jwt is valid and login them if it is
@@ -13,6 +14,7 @@ router.get("/", auth, async (req, res) => {
     try {
         //finds user id using token
         const user = await User.findById(req.user.id).select("-password");
+        res.json(user);
     } catch (error) {
         console.error(error.message);
         return res.status(400).json({ msg : "Server Error"});
@@ -39,17 +41,18 @@ async (req,res) => {
         //checks if email has an account and has the correct password then creates jwt
         try {
             //finds the user by email
-            const user = User.findOne({ email });
+            let user = User.findOne({ email });
             //if it can't find a user with that email
             if (!user){
-                return res.status(400).json({ msg : "Invalid Credentials"});
+                return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
             }
-
+            
+            
             //checks if password matches the users password
             const isMatch = await bcrypt.compare(password, user.password)
             //checks if password matches or not
             if(!isMatch){
-                return res.status(400).json({ msg : "Invalid Credentials"});
+                return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
             }
 
             //creates a jwt
