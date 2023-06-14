@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
 // @desc checks if the password match the email given 
 // @access Public
 router.post("/", [
-    check("email", "Please input a valid email").isEmail(),
+    check('email', "Please input a valid email").isEmail(),
     check("password", "Password is required").isLength({ min : 6})
 ], 
 async (req,res) => {
