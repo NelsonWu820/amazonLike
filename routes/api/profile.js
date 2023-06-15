@@ -11,7 +11,7 @@ const { check, validationResult } = require("express-validator");
 router.get("/me", auth, async (req, res) => {
     try {
         //find profile by the id which is created in the auth middleware
-        const profile = await Profile.findOne({user : req.user.id}).populate("User", ["name", "avatar"]);
+        const profile = await Profile.findOne({user : req.user.id}).populate("user", ["name", "avatar"]);
         
         //checks if profile has a user
         if (!profile){
@@ -38,10 +38,11 @@ router.post("/edit", auth,
         }
 
         //updates the profile
-        const { card1, card2, card3, sex, age } = req.body;
+        const { address, card1, card2, card3, sex, age } = req.body;
         //create the profile
         const profileField = {
             user : req.user.id,
+            address: address,
             card1 : card1,
             card2 : card2,
             card3 : card3,
@@ -66,5 +67,20 @@ router.post("/edit", auth,
 // @route DELETE api/profile
 // @desc Deletes profile and all posts also user
 // @access Private
+router.delete("/", auth, 
+    async (req, res) => {
+        try {
+            await Promise.all([
+                //add comments and cart
+                Profile.findOneAndDelete({ user: req.user.id}),
+                User.findOneAndDelete({ _id: req.user.id})
+            ])
+            return res.json({ msg: "User Deleted"})
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
 
 module.exports = router;
