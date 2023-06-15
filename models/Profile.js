@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const ProfileSchema = new mongoose.Schema({
     user: {
         id: mongoose.Schema.Types.ObjectId,
-        ref: user
+        ref: 'user'
     },
 
     address: {
@@ -12,15 +12,15 @@ const ProfileSchema = new mongoose.Schema({
     },
 
     card1 : {
-        type: int 
+        type: Number 
     },
 
     card2 : {
-        type: int 
+        type: Number 
     },
 
     card3 : {
-        type: int 
+        type: Number 
     },
 
     sex: {
@@ -28,7 +28,7 @@ const ProfileSchema = new mongoose.Schema({
     },
 
     age : {
-        type: int
+        type: Number
     }
 
 })
