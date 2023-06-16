@@ -18,8 +18,11 @@ const ItemsSchema = new mongoose.Schema({
     comments: [
         {
             user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
+                type: mongoose.Schema.Types.ObjectId
+            },
+
+            name: {
+                type: String
             },
 
             text: {
@@ -44,8 +47,7 @@ const ItemsSchema = new mongoose.Schema({
             likes: [
                 {
                     user: {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'user'
+                        type: mongoose.Schema.Types.ObjectId
                     }
                 }
             ],
@@ -53,8 +55,7 @@ const ItemsSchema = new mongoose.Schema({
             dislikes: [
                 {
                     user: {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'user'
+                        type: mongoose.Schema.Types.ObjectId
                     }
                 }
             ]
