@@ -123,7 +123,7 @@ router.delete("comments/:id/:comment_id", auth, checkObjectID("id"), checkObject
 // @route PUT api/items/comments/dislike/:id/:comment_id
 // @desc dislikes a comment 
 // @access Private
-router.put("/dislike/:id:comment_id", auth, checkObjectID("id"), checkObjectID("comment_id"),
+router.put("/dislike/:id/:comment_id", auth, checkObjectID("id"), checkObjectID("comment_id"),
     async (req, res) => {
         //checks it it already disliked the comment
         //finds item
@@ -135,6 +135,8 @@ router.put("/dislike/:id:comment_id", auth, checkObjectID("id"), checkObjectID("
         if(dislike){
             return res.json({ msg: "Already disliked"});
         }
+
+        return res.json({ msg: "put works"});
 
         //if liked switch to disliked
 
