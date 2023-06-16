@@ -5,6 +5,7 @@ const User = require("../../models/User.js");
 const auth = require("../../middleware/auth.js");
 const checkObjectID = require("../../middleware/checkObjectID.js");
 const {check, validationResult} = require("express-validator");
+const axios = require("axios");
 
 // @route GET api/items
 // @desc gives a list of items  
@@ -85,10 +86,10 @@ router.post("/comments/:id", auth, checkObjectID("id"),
 // @route DELETE api/items/comments/:id/:comment_id
 // @desc deletes a comment
 // @access Private
-router.delete("comments/:id/:comment_id", auth,
+router.delete("comments/:id/:comment_id", auth, checkObjectID("id"), checkObjectID("comment_id"),
     async (req, res) => {
+        const item = await Items.findById(req.params.id);
         try {
-            const item = await Items.findById(req.params.id);
 
             const comment = item.comments.find(
                 (comment) => comment.id == req.params.comment_id
@@ -119,9 +120,26 @@ router.delete("comments/:id/:comment_id", auth,
     }
 )
 
-// @route POST api/items/comments/dislike/:id
+// @route PUT api/items/comments/dislike/:id/:comment_id
 // @desc dislikes a comment 
 // @access Private
+router.put("/dislike/:id:comment_id", auth, checkObjectID("id"), checkObjectID("comment_id"),
+    async (req, res) => {
+        //checks it it already disliked the comment
+        //finds item
+        const item = await Items.findById(req.params.id);
+        //find if user id is in dislike array
+        const dislike = item.comments.find(
+            (comment) => comment.dislike.id == req.params.comment_id
+        )
+        if(dislike){
+            return res.json({ msg: "Already disliked"});
+        }
+
+        //if liked switch to disliked
+
+    }
+)
 
 // @route POST api/items/comments/un dislike/:id
 // @desc un dislikes a comment 
