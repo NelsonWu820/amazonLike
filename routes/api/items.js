@@ -82,9 +82,42 @@ router.post("/comments/:id", auth, checkObjectID("id"),
     }
 )
 
-// @route DELETE api/items/comments/:id
+// @route DELETE api/items/comments/:id/:comment_id
 // @desc deletes a comment
 // @access Private
+router.delete("comments/:id/:comment_id", auth,
+    async (req, res) => {
+        try {
+            const item = await Items.findById(req.params.id);
+
+            const comment = item.comments.find(
+                (comment) => comment.id == req.params.comment_id
+            );
+
+            //if there is a comment with that id
+            if(!comment){
+                return res.status(400).json({ errors: "Comment not found"});
+            }
+
+            //checks if user is the comments poster
+            if(req.user.id !== comment.user.toString()){
+                return res.status(400).json({ errors: "Not authorized"});
+            }
+
+            item.comments = item.comments.filter(
+                ({ id }) => id !== req.params.comment_id
+            );
+
+            await item.save();
+
+            return res.json(item.comments);
+
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
 
 // @route POST api/items/comments/dislike/:id
 // @desc dislikes a comment 
