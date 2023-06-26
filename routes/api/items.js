@@ -83,16 +83,16 @@ router.post("/comments/:id", auth, checkObjectID("id"),
     }
 )
 
-// @route DELETE api/items/comments/:id/:comment_id
-// @desc deletes a comment
+// @route DELETE api/items/comments/:item_id/:comment_id
+// @desc deletes a comment with item_id/comment_id
 // @access Private
-router.delete("comments/:id/:comment_id", auth, checkObjectID("id"), checkObjectID("comment_id"),
+router.delete("/comments/:item_id/:comment_id", auth,
     async (req, res) => {
-        const item = await Items.findById(req.params.id);
+        const item = await Items.findById(req.params.item_id);
         try {
 
             const comment = item.comments.find(
-                (comment) => comment.id == req.params.comment_id
+                (comment) => comment.id === req.params.comment_id
             );
 
             //if there is a comment with that id
@@ -111,7 +111,7 @@ router.delete("comments/:id/:comment_id", auth, checkObjectID("id"), checkObject
 
             await item.save();
 
-            return res.json(item.comments);
+            res.json(item.comments);
 
         } catch (error) {
             console.error(error.message);
@@ -143,15 +143,15 @@ router.put("/dislike/:id/:comment_id", auth,
     }
 )
 
-// @route POST api/items/comments/un dislike/:id
+// @route PUT api/items/comments/un dislike/:id
 // @desc un dislikes a comment 
 // @access Private
 
-// @route POST api/items/comments/like/:id
+// @route PUT api/items/comments/like/:id
 // @desc likes a comment 
 // @access Private
 
-// @route POST api/items/comments/un like/:id
+// @route PUT api/items/comments/un like/:id
 // @desc un likes a comment 
 // @access Private
 
