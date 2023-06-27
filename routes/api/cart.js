@@ -49,6 +49,22 @@ router.put('/:item_id', auth,
 // @route DELETE api/cart/:item_id
 // @desc delete's an item from cart
 // @access Private
+router.delete('/:item_id', auth, 
+    async (req, res) => {
+        try {
+            await Cart.updateOne({ user: req.user.id }, {
+                $pull: {
+                    items: req.params.item_id
+                },
+            });
+
+            res.json({ msg : "Item has been deleted from Cart"});
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
 
 
 module.exports = router;
