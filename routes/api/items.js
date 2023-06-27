@@ -6,6 +6,8 @@ const auth = require("../../middleware/auth.js");
 const checkObjectID = require("../../middleware/checkObjectID.js");
 const {check, validationResult} = require("express-validator");
 const axios = require("axios");
+const Dislike = require("../../models/Dislike.js");
+const Like = require("../../models/Like.js");
 
 // @route GET api/items
 // @desc gives a list of items  
@@ -120,38 +122,79 @@ router.delete("/comments/:item_id/:comment_id", auth,
     }
 )
 
-// @route PUT api/items/comments/dislike/:id/:comment_id
+// @route PUT api/items/comments/dislike/:item_id/:comment_id
 // @desc dislikes a comment 
 // @access Private
-router.put("/dislike/:id/:comment_id", auth,
+router.put("/comments/dislike/:item_id/:comment_id", auth,
     async (req, res) => {
-        //checks it it already disliked the comment
-        //finds item
-        const item = await Items.findById(req.params.id);
-        //find if user id is in dislike array
-        const dislike = item.comments.find(
-            (comment) => comment.dislike.id == req.params.comment_id
-        )
-        if(dislike){
-            return res.json({ msg: "Already disliked"});
+        //checks it it already liked the comment
+        const like = await Like.findOne({ comment : req.params.comment_id});
+        //if they already liked it delete it if not it'll go on
+        if(like){
+            await Like.findOneAndDelete({comment: req.params.comment_id});
         }
 
-        return res.json({ msg: "put works"});
+        //checks it it already disliked the comment
+        //finds if the user is logged in dislike array
+        const dislike = await Dislike.findOne({ comment : req.params.comment_id})
+        console.log(dislike);
 
-        //if liked switch to disliked
+        //if something is returned 
+        if(dislike){
+            res.json({ msg: "Already Disliked"});
+        }
 
+        //if null/no dislike
+        const dislikeNew = new Dislike({
+            comment : req.params.comment_id,
+            user: req.user.id
+        })
+
+        await dislikeNew.save();
+
+        res.send(dislikeNew);
     }
 )
 
-// @route PUT api/items/comments/un dislike/:id
+// @route PUT api/items/comments/un dislike/:item_id/:comment_id
 // @desc un dislikes a comment 
 // @access Private
 
-// @route PUT api/items/comments/like/:id
+// @route PUT api/items/comments/like/:item_id/:comment_id
 // @desc likes a comment 
 // @access Private
+router.put("/comments/like/:item_id/:comment_id", auth,
+    async (req, res) => {
+        //checks it it already disliked the comment
+        const dislike = await Dislike.findOne({ comment : req.params.comment_id});
+        //if they already disliked it delete it if not it'll go on
+        if(dislike){
+            await Like.findOneAndDelete({comment: req.params.comment_id});
+        }
 
-// @route PUT api/items/comments/un like/:id
+        //checks it it already disliked the comment
+        //finds if the user is logged in dislike array
+        const like = await Like.findOne({ comment : req.params.comment_id})
+        console.log(like);
+
+        //if something is returned 
+        if(like){
+            res.json({ msg: "Already Liked"});
+        }
+
+        //if null/no dislike
+        const likeNew = new Like({
+            comment : req.params.comment_id,
+            user: req.user.id
+        })
+
+        await likeNew.save();
+
+        res.send(likeNew);
+    }
+)
+
+// @route PUT api/items/comments/un like/:item_id/:comment_id
 // @desc un likes a comment 
 // @access Private
 
