@@ -12,6 +12,7 @@ router.get("/me", auth, async (req, res) => {
     try {
         //find profile by the id which is created in the auth middleware
         const profile = await Profile.findOne({user : req.user.id}).populate("user", ["name", "avatar"]);
+        console.log(profile);
         
         //checks if profile has a user
         if (!profile){

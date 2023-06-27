@@ -15,52 +15,34 @@ const ItemsSchema = new mongoose.Schema({
         required: true
     },
 
-    comments: [
-        {
-            user: {
-                type: mongoose.Schema.Types.ObjectId
-            },
+    comments: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId
+        },
 
-            name: {
-                type: String
-            },
+        name: {
+            type: String
+        },
 
-            text: {
-                type: String,
-                required: true
-            },
+        text: {
+            type: String,
+            required: true
+        },
 
-            rating: {
-                type: Number,
-                required: true
-            },
-            
-            avatar: {
-                type: String
-            },
+        rating: {
+            type: Number,
+            required: true
+        },
+        
+        avatar: {
+            type: String
+        },
 
-            date: {
-                type: Date,
-                default: Date.now
-            },
-
-            likes: [
-                {
-                    user: {
-                        type: mongoose.Schema.Types.ObjectId
-                    }
-                }
-            ],
-
-            dislikes: [
-                {
-                    user: {
-                        type: mongoose.Schema.Types.ObjectId
-                    }
-                }
-            ]
+        date: {
+            type: Date,
+            default: Date.now
         }
-    ]
+    }]
 })
 
 module.exports = mongoose.model("items", ItemsSchema);
