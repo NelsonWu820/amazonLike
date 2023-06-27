@@ -159,6 +159,19 @@ router.put("/comments/dislike/:item_id/:comment_id", auth,
 // @route PUT api/items/comments/un dislike/:item_id/:comment_id
 // @desc un dislikes a comment 
 // @access Private
+router.put("/comments/undislike/:item_id/:comment_id", auth, 
+    async (req, res) => {
+        try {
+            //finds a user in dislikes and deletes it
+            await Dislike.findOneAndDelete({ comment : req.params.comment_id});
+    
+            res.json({ msg : "Dislike Deleted"});
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
 
 // @route PUT api/items/comments/like/:item_id/:comment_id
 // @desc likes a comment 
@@ -197,5 +210,51 @@ router.put("/comments/like/:item_id/:comment_id", auth,
 // @route PUT api/items/comments/un like/:item_id/:comment_id
 // @desc un likes a comment 
 // @access Private
+router.put("/comments/unlike/:item_id/:comment_id", auth, 
+    async (req, res) => {
+        try {
+            //finds a user in dislikes and deletes it
+            await Like.findOneAndDelete({ comment : req.params.comment_id});
+    
+            res.json({ msg : "Like Deleted"});
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
+
+// @route Get api/items/comments/dislike/:item_id/:comment_id
+// @desc gets a comments dislikes
+// @access Public
+router.get("/comments/dislike/:item_id/:comment_id", 
+    async (req,res) => {
+        try {
+            const dislike = await Dislike.find({})
+            res.json(dislike);
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
+
+// @route Get api/items/comments/like/:item_id/:comment_id
+// @desc gets a comments ;ikes
+// @access Public
+router.get("/comments/like/:item_id/:comment_id", 
+    async (req,res) => {
+        try {
+            const like = await Like.find({})
+            res.json(like);
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
+
+
+
 
 module.exports = router;
