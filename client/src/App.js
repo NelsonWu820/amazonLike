@@ -5,16 +5,21 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Navbar from './components/layout/Navbar';
 
+import store from './store';
+import { Provider } from 'react-redux';
+
 function App() {
   return (
-    <Router>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={ <Landing/>}/>
-        <Route path='/login' element= { <Login/>}/>
-        <Route path='/register' element = { <Register/> }/>
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={ <Landing/>}/>
+          <Route path='/login' element= { <Login/>}/>
+          <Route path='/register' element = { <Register/> }/>
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 
