@@ -1,19 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-
-const Alert = () => {
-    return (
-        <div>
-            
+const Alert = ({ alerts }) => {
+    <div className='alert-wrapper'>
+    {alerts !== null && alerts.length > 0 && alerts.map( alert => (
+				//every jsx item in a loop needs its own unqie key
+				//the classname will be dynamic which will determine css styling
+        <div key={alert.id} className = {`alert alert-${alert.alertType}`}>
+            { alert.msg }
         </div>
-    );
+    ))}
+    </div>    
+
+    
 };
 
 
 Alert.propTypes = {
-
+    alerts: PropTypes.array.isRequired
 };
 
+const mapStateToProps = (state) => ({
+    alerts: state.alert
+})
 
-export default Alert;
+export default connect(mapStateToProps)(Alert);
