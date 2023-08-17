@@ -1,4 +1,8 @@
 import React from 'react';
+import item_1 from '../../static/item_1.webp';
+import item_2 from '../../static/item_2.jpg';
+import item_3 from '../../static/item_3.jpg';
+import item_4 from '../../static/item_4.jpg';
 
 const Landing = () => {
     return (
@@ -8,7 +12,7 @@ const Landing = () => {
                 <div class="container px-4 px-lg-5 my-5">
                     <div class="text-center text-white">
                         <h1 class="display-4 fw-bolder">Shop in style</h1>
-                        <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                        <p class="lead fw-normal text-white-50 mb-0">With this modernized amazon clone</p>
                     </div>
                 </div>
             </header>
@@ -18,12 +22,12 @@ const Landing = () => {
                         <div class="col mb-5">
                             <div class="card h-100">
                     
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" className='item_1_img' src= {item_1} alt="..." />
                     
                                 <div class="card-body p-4">
                                     <div class="text-center">
                             
-                                        <h5 class="fw-bolder">Fancy Product</h5>
+                                        <h5 class="fw-bolder">BikeTireDirect BackPack</h5>
                             
                                         $40.00 - $80.00
                                     </div>
@@ -39,12 +43,12 @@ const Landing = () => {
                     
                                 <div class="badge bg-dark text-white position-absolute" >Sale</div>
                     
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src={item_2} alt="..." />
                     
                                 <div class="card-body p-4">
                                     <div class="text-center">
                             
-                                        <h5 class="fw-bolder">Special Item</h5>
+                                        <h5 class="fw-bolder">Razor Mouse</h5>
                             
                                         <div class="d-flex justify-content-center small text-warning mb-2">
                                             <div class="bi-star-fill"></div>
@@ -69,12 +73,12 @@ const Landing = () => {
                     
                                 <div class="badge bg-dark text-white position-absolute" >Sale</div>
                     
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src={item_3} alt="..." />
                     
                                 <div class="card-body p-4">
                                     <div class="text-center">
                             
-                                        <h5 class="fw-bolder">Sale Item</h5>
+                                        <h5 class="fw-bolder">Sony Headphones</h5>
                             
                                         <span class="text-muted text-decoration-line-through">$50.00</span>
                                         $25.00
@@ -89,12 +93,12 @@ const Landing = () => {
                         <div class="col mb-5">
                             <div class="card h-100">
                     
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img class="card-img-top" src={item_4} alt="..." />
                     
                                 <div class="card-body p-4">
                                     <div class="text-center">
                             
-                                        <h5 class="fw-bolder">Popular Item</h5>
+                                        <h5 class="fw-bolder">ZWILLING Stainless Steel Knife Set</h5>
                             
                                         <div class="d-flex justify-content-center small text-warning mb-2">
                                             <div class="bi-star-fill"></div>
