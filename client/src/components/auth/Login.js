@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { login } from '../../actions/auth';
+import { connect } from 'react-redux';
 
 
-const Login = () => {
+const Login = ({login}) => {
+    const [formData, setFormdata] = useState({
+      email: '',
+      password: ''
+    })
+
+    const { email, password } = formData;
+
+    const onSubmit = async e => {
+      e.preventDefault();
+      login(email, password);
+    }
+
+    const onChange = e => {
+      setFormdata({...formData, [e.target.name]: e.target.value})
+    }
+
     return (
     <section className="container">
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
           <i className="fas fa-user" /> Sign Into Your Account
         </p>
-        <form className="form">
+        <form className="form" onSubmit={onSubmit}>
           <div className="form-group">
             <input
               type="email"
               placeholder="Email Address"
               name="email"
+              value={email}
+              onChange={e => onChange(e)}
             />
           </div>
           <div className="form-group">
@@ -24,6 +44,8 @@ const Login = () => {
               placeholder="Password"
               name="password"
               minLength="6"
+              value={password}
+              onChange={e => onChange(e)}
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
@@ -37,8 +59,8 @@ const Login = () => {
 
 
 Login.propTypes = {
-
+  login: PropTypes.func.isRequired,
 };
 
 
-export default Login;
+export default connect(null, {login})(Login);
