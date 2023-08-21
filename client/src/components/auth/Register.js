@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import {connect} from 'react-redux';
+import { register } from '../../actions/auth';
 
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const[formData, setFormData] = useState({
         name: '',
         email:'',
@@ -17,13 +18,20 @@ const Register = ({ setAlert }) => {
 
     const onChange = e => {
         setFormData({...formData,[e.target.name] : e.target.value});
-    }
+    };
 
-    const onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
         if(password !== password2){
             setAlert("Passwords Don't Match", "danger");
         }
+        else{
+            register(formData);
+        }
+    };
+
+    if(isAuthenticated){
+        return <Navigate to="/dashboard"/>
     }
 
     return (
@@ -39,7 +47,7 @@ const Register = ({ setAlert }) => {
                 placeholder="Name"
                 name="name"
                 value={name}
-                onChange={e =>onChange(e)}
+                onChange={onChange}
                 />
             </div>
             <div className="form-group">
@@ -48,7 +56,7 @@ const Register = ({ setAlert }) => {
                 placeholder="Email Address"
                 name="email"
                 value={email}
-                onChange={e =>onChange(e)}
+                onChange={onChange}
                 />
             </div>
             <div className="form-group">
@@ -58,7 +66,7 @@ const Register = ({ setAlert }) => {
                 name="password"
                 minLength="6"
                 value={password}
-                onChange={e =>onChange(e)}
+                onChange={onChange}
                 />
             </div>
             <div className="form-group">
@@ -68,7 +76,7 @@ const Register = ({ setAlert }) => {
                 name="password2"
                 minLength="6"
                 value={password2}
-                onChange={e =>onChange(e)}
+                onChange={onChange}
                 />
             </div>
             <input type="submit" className="btn btn-primary" value="Sign Up" />
@@ -83,7 +91,12 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
 };
 
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
-export default connect(null, { setAlert })(Register);
+export default connect(mapStateToProps, { setAlert, register })(Register);
