@@ -20,12 +20,6 @@ const Navbar = () => {
                             <li><Link className="dropdown-item" to="#!">New Arrivals</Link></li>
                         </ul>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/login'>Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/register'>Sign up</Link>
-                    </li>
                 </ul>
                 <form className="d-flex">
                     <button className="btn btn-outline-dark" type="submit">
@@ -34,6 +28,14 @@ const Navbar = () => {
                         <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
                 </form>
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li className="nav-item">
+                        <Link className="nav-link active" to='/login'>Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active" to='/register'>Sign up</Link>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
