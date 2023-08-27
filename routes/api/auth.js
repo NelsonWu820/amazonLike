@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const {check, validationResult} = require("express-validator");
 const auth = require("../../middleware/auth");
-const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+
+const User = require("../../models/User");
 
 // @route GET api/auth
 // @desc checks if the current jwt is valid and login them if it is
@@ -24,10 +25,9 @@ router.get("/", auth, async (req, res) => {
 // @route POST api/auth
 // @desc checks if the password match the email given 
 // @access Public
-router.post("/", [
+router.post("/",
     check('email', "Please input a valid email").isEmail(),
-    check("password", "Password is required").isLength({ min : 6})
-], 
+    check("password", "Password is required").exists(), 
 async (req,res) => {
         //checks if there were any errors from the check above
         const errors = validationResult(req);
@@ -41,12 +41,13 @@ async (req,res) => {
         //checks if email has an account and has the correct password then creates jwt
         try {
             //finds the user by email
-            let user = User.findOne({ email });
+            let user = await User.findOne({ email });
             //if it can't find a user with that email
             if (!user){
                 return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
             }
             
+            console.log(password, " + ", user.password, email, "\n");
             
             //checks if password matches the users password
             const isMatch = await bcrypt.compare(password, user.password)
@@ -66,11 +67,11 @@ async (req,res) => {
             jwt.sign(payload, config.get("jwtSecret"), {expiresIn : "5 days"}, (err, token) => {
                 if (err) throw err;
                 res.json({ token });
-            });
+            });         
 
         } catch (err) {
             console.error(err.message);
-            return res.status(500).send("Server Error");
+            return res.status(500).send("Server Error test" );
         }
 
     }

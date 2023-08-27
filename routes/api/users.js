@@ -14,14 +14,6 @@ router.post("/",
     check("name", "Please input a valid name").notEmpty(),
     check("email", "Please input a valid email address").isEmail(),
     check("password", "Please input a password at least 6 characters long").isLength({ min: 6 }),
-    check("confirm", "Passwords don't match").custom((value,{req}) => {
-        if (value !== req.body.password) {
-            // trow error if passwords do not match
-            throw new Error("Passwords don't match");
-        } else {
-            return value;
-        }
-    }),
     async (req, res) => {
         //check for errors above
         const errors = validationResult(req);
@@ -29,16 +21,16 @@ router.post("/",
             return res.status(400).json({ errors: errors.array() });
         }
 
-
+        
+        //sends user data to mongodb through Schema
+        //takes it out from body
+        const { email, password, name } = req.body;
         try {
-            //sends user data to mongodb through Schema
-            //takes it out from body
-            const { email, password, name } = req.body;
     
             // check if email is unique 
             let user = await User.findOne({ email });
             if (user) {
-                return res.status(400).json({ errors: "Email already has an account"});
+                return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
             }
 
             //sets gravatar 
@@ -59,7 +51,7 @@ router.post("/",
             
             //sets password saved to encrypted password
             const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
+            user.password = await bcrypt.hash(req.body.password, salt);
 
             //then saves it actually
             await user.save();
