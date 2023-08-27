@@ -1,5 +1,5 @@
 import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR } from "./types";
-import axios from "axios";
+import api from "../utils/api";
 import { setAlert } from './alert'
 import setAuthToken from "../utils/setAuthToken";
 
@@ -9,7 +9,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try {
-        const res = await axios.get('/auth');
+        const res = await api.get('/');
 
         dispatch({
             type: USER_LOADED,
@@ -27,7 +27,7 @@ export const loadUser = () => async dispatch => {
 export const register = (formData) => async dispatch => {
     
     try {
-        const res = await axios.post('/api/users/', formData);
+        const res = await api.post('/users/', formData);
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -37,10 +37,10 @@ export const register = (formData) => async dispatch => {
         dispatch(loadUser());
     } catch (err) {
         console.log("Register Error:", err);
-        const errors = err.response.data.errors
+        const errors = err.response.data.errors;
 
-        if(errors){
-            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        if (errors) {
+          errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
 
         dispatch({
@@ -50,17 +50,10 @@ export const register = (formData) => async dispatch => {
     }
 }
 
-export const login = ({email, password}) => async dispatch => {
-    const config = {
-        headers : {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    const body = JSON.stringify({email, password})
+export const login = (formData) => async dispatch => { 
     
     try {
-        const res = await axios.post('/auth', body, config);
+        const res = await api.post('/auth', formData);
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -70,10 +63,10 @@ export const login = ({email, password}) => async dispatch => {
         dispatch(loadUser());
     } catch (err) {
         console.log("Login Error:", err);
-        const errors = err.response.data.errors
+        const errors = err.response.data.errors;
 
         if(errors){
-            errors.map((error) => dispatch(setAlert(err.message, 'danger')))
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
         }
 
         dispatch({
