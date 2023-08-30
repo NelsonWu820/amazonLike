@@ -5,6 +5,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
+import ProtectedRoute from './components/routing/ProtectedRoute';
+import Dashboard from './components/dashboard/Dashboard';
 
 import store from './store';
 import { Provider } from 'react-redux';
@@ -19,6 +21,7 @@ function App() {
           <Route path='/' element={ <Landing/>}/>
           <Route path='/login' element= { <Login/>}/>
           <Route path='/register' element = { <Register/> }/>
+          <Route path='/dashboard' element={<ProtectedRoute component={<Dashboard/>}/>}/>
         </Routes>
       </Router>
     </Provider>
