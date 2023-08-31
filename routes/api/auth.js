@@ -10,15 +10,15 @@ const User = require("../../models/User");
 
 // @route GET api/auth
 // @desc checks if the current jwt is valid and login them if it is
-// @access Public
+// @access Private
 router.get("/", auth, async (req, res) => {
     try {
         //finds user id using token
         const user = await User.findById(req.user.id).select("-password");
         res.json(user);
-    } catch (error) {
-        console.error(error.message);
-        return res.status(400).json({ msg : "Server Error"});
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
     }
 });
 
@@ -46,8 +46,6 @@ async (req,res) => {
             if (!user){
                 return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
             }
-            
-            console.log(password, " + ", user.password, email, "\n");
             
             //checks if password matches the users password
             const isMatch = await bcrypt.compare(password, user.password)
