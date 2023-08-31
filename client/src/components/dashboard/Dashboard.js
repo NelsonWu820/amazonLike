@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 
-const Dashboard = ({ profile, user }) => {
+const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth: {user} }) => {
+    useEffect(() => {
+        getCurrentProfile();
+    }, [getCurrentProfile])
+
     return (
         <div>
             <h1>Dashboard</h1>
             <div>Welcome {user && user.name} </div>
-            {profile != null ? (
+            {profile !== null ? (
                 <>
-                    Dashboard actions only edit
+                    <Link to="/edit-profile">
+                        Edit Profile
+                    </Link>
+                    <button onClick={() => deleteAccount()}>
+                        Delete Account
+                    </button>
                 </>
             ):(
                 <>
                     <div>Please make a profile</div>
-                    profile form make
-
+                    <Link to="/create-profile">
+                        Make Profile
+                    </Link>
                 </>
             )}
         </div>
@@ -25,6 +37,8 @@ const Dashboard = ({ profile, user }) => {
 
 
 Dashboard.propTypes = {
+    getCurrentProfile: PropTypes.func.isRequired,
+    deleteAccount: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -34,4 +48,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, {getCurrentProfile, deleteAccount})(Dashboard);
