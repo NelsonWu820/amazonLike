@@ -26,9 +26,9 @@ function authReducer (state = initalState, action) {
                 loading: false
             }
         case LOGIN_FAIL:
-        case REGISTER_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
+        case REGISTER_FAIL:
             return {
                 ...state,
                 token: null,
