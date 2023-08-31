@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import connect from 'react-redux';
+import {connect} from 'react-redux';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
 import { getCurrentProfile, updateProfile } from '../../actions/profile';
 
-const initalState = {
+const initialState = {
     address: '',
     card1 : '',
     card2 : '',
@@ -12,8 +13,8 @@ const initalState = {
     age : ''
 }
 
-const ProfileForm = () => {
-    const [formData, setFormData] = useState(initalState)
+const ProfileForm = ({profile: {profile, loading}, getCurrentProfile, updateProfile}) => {
+    const [formData, setFormData] = useState(initialState)
 
     const {
         address,
@@ -25,19 +26,41 @@ const ProfileForm = () => {
     } = formData
 
     //fills in update profile if current profile already has some info
-    
+    useEffect(() => {
+        if(!profile) getCurrentProfile();
+
+        if (!loading && profile) {
+            const profileData = { ...initialState };
+            for (const key in profile) {
+              if (key in profileData) profileData[key] = profile[key];
+            }
+
+            setFormData(profileData)
+        }
+
+    }, [loading, profile, getCurrentProfile]);
+
+    const creatingProfile = useMatch('/create-profile');
+
+    const navigate = useNavigate(); 
 
     const onChange = e => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
     const onSubmit = e => {
+        const editing = profile ? true : false;
         e.preventDefault();
-        updateProfile(formData);
+        updateProfile(formData, editing).then(() => {
+            if(!editing) navigate('/dashboard');
+        });
     }
 
     return (
         <div>
+            <h1 className="large text-primary">
+                {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
+            </h1>
             <form onSubmit={onSubmit}>
                 <input type='text' placeholder='address' name='address' value={address} onChange={onChange}/>
                 <input type='text' placeholder='card1' name='card1' value={card1} onChange={onChange}/>
@@ -47,6 +70,9 @@ const ProfileForm = () => {
                 <input type='text' placeholder='age' name='age' value={age} onChange={onChange}/>
                 <input type='submit'/>
             </form>
+            <Link to="/dashboard">
+                Go Back
+            </Link>
         </div>
     );
 };
