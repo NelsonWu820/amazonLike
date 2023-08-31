@@ -1,12 +1,13 @@
-import { PROFILE_SUCCESS, PROFILE_ERROR, PROFILE_UPDATE } from "./types";
+import { PROFILE_GET, PROFILE_ERROR, PROFILE_UPDATE, ACCOUNT_DELETE, LOGOUT } from "./types";
 import api from "../utils/api";
+import { setAlert } from "./alert";
 
 export const getCurrentProfile = () => async dispatch => {
     try {
         const res = await api.get('/profile/me')
 
         dispatch({
-            type: PROFILE_SUCCESS,
+            type: PROFILE_GET,
             payload: res.data
         })
     } catch (err) {
@@ -38,6 +39,33 @@ export const updateProfile = (formData, edit = false) => async dispatch => {
         );
     } catch (err) {
         console.log("Register Error:", err);
+        const errors = err.response.data.errors;
+
+        if (errors) {
+          errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+
+        dispatch({
+            type: PROFILE_ERROR
+        });
+    }
+}
+
+//delete profile
+export const deleteAccount = () => async dispatch => {
+    if(window.confirm('This can not be undone')){
+
+    }
+    
+    try {
+        await api.delete('/profile');
+
+        dispatch({type: ACCOUNT_DELETE})
+        dispatch({type: LOGOUT})
+
+        dispatch(setAlert("Profile Deleted"))
+    } catch (err) {
+        console.log("Delete Profile Error:", err);
         const errors = err.response.data.errors;
 
         if (errors) {
