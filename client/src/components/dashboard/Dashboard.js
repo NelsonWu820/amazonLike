@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import ProfileForm from '../profile-form/ProfileForm'
 
 
 const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth: {user} }) => {
@@ -16,9 +17,7 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth:
             <div>Welcome {user && user.name} </div>
             {profile !== null ? (
                 <>
-                    <Link to="/edit-profile">
-                        Edit Profile
-                    </Link>
+                    <ProfileForm/>
                     <button onClick={() => deleteAccount()}>
                         Delete Account
                     </button>

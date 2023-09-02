@@ -45,7 +45,6 @@ function App() {
           <Route path='register' element = { <Register/> }/>
           <Route path="dashboard" element={<ProtectedRoute component={Dashboard} />}/>
           <Route path="create-profile" element={<ProtectedRoute component={ProfileForm} />}/>
-          <Route path="edit-profile" element={<ProtectedRoute component={ProfileForm} />}/>
         </Routes>
       </Router>
     </Provider>
