@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR } from "./types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT } from "./types";
 import api from "../utils/api";
 import { setAlert } from './alert'
 import setAuthToken from "../utils/setAuthToken";
@@ -72,4 +72,10 @@ export const login = (email, password) => async dispatch => {
         });
 
     }
+}
+
+export const logout = () => async dispatch => {
+        dispatch({
+            type: LOGOUT
+        })
 }
