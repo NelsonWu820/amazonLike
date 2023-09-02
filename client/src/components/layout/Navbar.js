@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { logout } from '../../actions/auth';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ({logout}) => {
     return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container px-4 px-lg-5">
@@ -35,6 +38,9 @@ const Navbar = () => {
                     <li className="nav-item">
                         <Link className="nav-link active" to='/register'>Sign up</Link>
                     </li>
+                    <li className="nav-item">
+                        <a className="nav-link active" onClick={logout} href="#!">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -42,4 +48,8 @@ const Navbar = () => {
     );
 }
 
-export default Navbar;
+Navbar.propTypes = {
+    logout: PropTypes.func.isRequired
+}
+
+export default connect(null, {logout})(Navbar);
