@@ -10814,3 +10814,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.itemHolder {
+  display: block;
+  max-width:300px;
+  max-height:300px;
+  width: auto;
+  height: auto;
+}
