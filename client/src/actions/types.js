@@ -11,3 +11,8 @@ export const PROFILE_GET = 'PROFILE_GET';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const PROFILE_UPDATE = 'PROFILE_UPDATE';
 export const ACCOUNT_DELETE = 'ACCOUNT_DELETE';
+export const ITEMS_GET = 'ITEMS_GET';
+export const ITEM_GET = 'ITEM_GET';
+export const ITEMS_ERROR = 'ITEMS_ERROR';
+
+
