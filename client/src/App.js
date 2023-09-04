@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import ProtectedRoute from './components/routing/ProtectedRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import ProfileForm from './components/profile-form/ProfileForm';
+import Item from './components/item/Item';
 
 import setAuthToken from './utils/setAuthToken';
 import { LOGOUT } from './actions/types';
@@ -45,6 +46,7 @@ function App() {
           <Route path='register' element = { <Register/> }/>
           <Route path="dashboard" element={<ProtectedRoute component={Dashboard} />}/>
           <Route path="create-profile" element={<ProtectedRoute component={ProfileForm} />}/>
+          <Route path='item/:id' element = { <Item/> }/>
         </Routes>
       </Router>
     </Provider>
