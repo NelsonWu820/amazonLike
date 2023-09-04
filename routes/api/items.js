@@ -25,6 +25,27 @@ router.get("/",
     }
 )
 
+// @route GET api/items.:id
+// @desc gives an item by id  
+// @access Public
+router.get("/:id", 
+    async (req, res) => {
+        //should get all items
+        try {
+            const item = await Items.findById(req.params.id);
+
+            if (!item) {
+                return res.status(404).json({ msg: 'Item not found' });
+            }
+
+            return res.json(item);
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
+
 // @route POST api/items
 // @desc creates an item 
 // @access Public
@@ -254,7 +275,40 @@ router.get("/comments/like/:item_id/:comment_id",
     }
 )
 
+//function to go into fake store api and take all data and place into an item 
+async function fetchDataFromAPI() {
+    try {
+      const response = await axios.get('https://fakestoreapi.com/products');
+      const productsFromAPI = response.data;
+  
+      // Update your Mongoose model here with the fetched data
+      // Example:
+      productsFromAPI.forEach(async (product) => {
+        const item = new Items({
+          title : product.title,
+          image: product.image,
+          description : product.description,
+          tag : product.category,
+          price : product.price,
+        });
+        
+        await item.save();
+      });
+  
+      console.log('Data from Fake Store API updated in the Mongoose model.');
+    } catch (err) {
+      console.error('Error fetching data from the API:', err);
+    }
+  }
 
+  //delete all items
+  async function deleteAllItems () {
+    try {
+        await Items.deleteMany({})
+    } catch (err) {
+        console.error('Error Deleteing all items:', err);
+    }
+  }
 
 
 module.exports = router;
