@@ -5,9 +5,23 @@ const ItemsSchema = new mongoose.Schema({
         type: Number
     },
 
+    title: {
+        type: String,
+        required: true
+    },
+
+    image : {
+        type: String,
+        required: true
+    },
+
     description: {
         type: String,
         required: true
+    },
+
+    tag: {
+        type: String
     },
 
     price: {
