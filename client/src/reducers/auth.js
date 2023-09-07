@@ -17,8 +17,8 @@ function authReducer (state = initalState, action) {
                 loading: false,
                 user: payload
             }
-        case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             return{
                 ...state,
                 ...payload,
@@ -28,7 +28,6 @@ function authReducer (state = initalState, action) {
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
-        case REGISTER_FAIL:
             return {
                 ...state,
                 token: null,
