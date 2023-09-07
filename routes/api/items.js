@@ -25,14 +25,14 @@ router.get("/",
     }
 )
 
-// @route GET api/items.:id
+// @route GET api/items/:id
 // @desc gives an item by id  
 // @access Public
-router.get("/:id", 
+router.get("/:id",
     async (req, res) => {
         //should get all items
         try {
-            const item = await Items.findById(req.params.id);
+            const item = await Items.findById(req.params.id);   
 
             if (!item) {
                 return res.status(404).json({ msg: 'Item not found' });
