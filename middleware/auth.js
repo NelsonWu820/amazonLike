@@ -11,7 +11,7 @@ module.exports = function (req, res, next) {
     try{
         jwt.verify(token, config.get("jwtSecret"), (error, decoded) => {
             if(error){
-                return res.status(401).json({ msg: "invalid token"});
+                return res.status(401).json({ msg: "token is not valid"});
             }
             else{
                 req.user = decoded.user;
