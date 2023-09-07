@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Navigate } from 'react-router-dom';
 import { login } from '../../actions/auth';
 import { connect } from 'react-redux';
+import setAuthToken from '../../utils/setAuthToken';
 
 
 const Login = ({login, isAuthenticated}) => {
@@ -21,6 +22,8 @@ const Login = ({login, isAuthenticated}) => {
       e.preventDefault();
       login(email, password);
     }
+
+    setAuthToken(localStorage.token)
     
     if(isAuthenticated){
       return <Navigate to="/dashboard" />
