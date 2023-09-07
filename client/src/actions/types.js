@@ -14,5 +14,8 @@ export const ACCOUNT_DELETE = 'ACCOUNT_DELETE';
 export const ITEMS_GET = 'ITEMS_GET';
 export const ITEM_GET = 'ITEM_GET';
 export const ITEMS_ERROR = 'ITEMS_ERROR';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const COMMENT_ADDED = 'COMMENT_ADDED';
+
 
 
