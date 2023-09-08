@@ -10822,3 +10822,24 @@ textarea.form-control-lg {
   width: auto;
   height: auto;
 }
+
+.ratings-wrapper{
+  border: thin solid #999;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.ratings{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.ratings span{
+  cursor: pointer;
+  transition: color .2s;
+  font-size: 50px;
+}
+.ratings span:hover{
+  color: orange;
+}
+.ratings span:hover ~ span{
+  color: orange;
+}
