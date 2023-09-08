@@ -80,11 +80,18 @@ router.post("/comments/:id", auth, checkObjectID("id"),
         if (!check) {
             return res.status(400).json({ errors: check.array()});
         }
-
+        
         try {
+            //initalize item to check if the item has the same user id in comments slready
+            const item = await Items.findById(req.params.id);
+
+            //checks if the user has a comment already
+            if(item.comments.user === req.user.id){
+                return res.status(400).json({ errors: [{ msg: 'User Post already exists' }] });
+            }
+
             //finds item through id in header then populates
             const user = await User.findById(req.user.id).select("-password");
-            const item = await Items.findById(req.params.id);
 
             const newComment = {
                 user: req.user.id,
@@ -96,10 +103,20 @@ router.post("/comments/:id", auth, checkObjectID("id"),
 
             item.comments.unshift(newComment);
 
+            //In a bigger application I would not place the averaging here, and would place it into a seperate function that runs periodically 
+            //finds the average rating of comment 
+            let total = 0;
+            item.comments.map((comment) => {
+                total += comment.rating;
+            }) 
+            //sets rating to average also rounds down 
+            item.rating = Math.round(total/ (item.comments.length));
+
+
             await item.save();
 
             res.json(item.comments);
-        } catch (error) {
+        } catch (error) {   
             console.error(error.message);
             return res.status(500).json({ error : "Server Error"});
         }
@@ -286,6 +303,7 @@ async function fetchDataFromAPI() {
       productsFromAPI.forEach(async (product) => {
         const item = new Items({
           title : product.title,
+          rating: 0,
           image: product.image,
           description : product.description,
           tag : product.category,
