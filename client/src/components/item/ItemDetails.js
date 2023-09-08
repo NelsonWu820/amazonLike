@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import Rating from '../rating/Rating'
 
 
-const ItemDetails = ({item: {item: {image, tag, description, title, price}}}) => {
+const ItemDetails = ({item: {item: {image, tag, description, title, price, rating}}}) => {
     return (
         <div>
             <section className="py-5">
@@ -17,6 +18,7 @@ const ItemDetails = ({item: {item: {image, tag, description, title, price}}}) =>
                                 <span className="text-decoration-line-through">${price - 5}</span>
                                 <span>${price}</span>
                             </div>
+                            <Rating rating={rating}/>
                             <p className="lead">{description}</p>
                             <div className="d-flex">
                                 <input className="form-control text-center me-3" id="inputQuantity" type="num" value="1"/>
