@@ -7,7 +7,7 @@ import ItemDetails from './ItemDetails';
 import ItemCommentForm from './ItemCommentForm';
 
 
-const Item = ({getItemById}) => {
+const Item = ({getItemById, auth: {isAuthenticated}}) => {
     const { id } = useParams();
     useEffect(() => {
         getItemById(id);    
@@ -16,7 +16,11 @@ const Item = ({getItemById}) => {
     return (
         <div>
             <ItemDetails/>
-            <ItemCommentForm id={id}/>
+            {isAuthenticated ===true ? (
+                <ItemCommentForm id={id}/>
+            ): (
+                <div>Please login to make an account but have it with comment form inside the comment and login link</div>
+            )}
             <footer className="py-5 bg-dark">
                 <div className="container"><p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
             </footer>
@@ -27,11 +31,10 @@ const Item = ({getItemById}) => {
 
 Item.propTypes = {
     getItemById: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-    item: state.item
+    auth: state.auth
 })
 
 export default connect(mapStateToProps, {getItemById})(Item);
