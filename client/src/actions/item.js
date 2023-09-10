@@ -1,4 +1,4 @@
-import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED } from "./types";
+import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED, COMMENT_REMOVED } from "./types";
 import api from '../utils/api';
 
 export const getAllItems = () => async dispatch =>{
@@ -45,11 +45,27 @@ export const addComment = (id, formData) => async (dispatch) => {
         });
 
     } catch (err) {
-        console.log("Add comment error", err);
-
+        console.log("make comment error", err);
         
     }
 }
+
+//delete comment with item id
+export const deleteComment = (id, comment_id) => async (dispatch) => {
+    try {
+        const res = await api.delete(`/items/comments/${id}/${comment_id}`);
+
+        dispatch({
+            type: COMMENT_REMOVED,
+            payload: res.data
+        });
+
+    } catch (err) {
+        console.log("delete comment error", err);
+        
+    }
+}
+
 
 //gets rid of item object from past
 export const removeItem = () => async dispatch =>{
