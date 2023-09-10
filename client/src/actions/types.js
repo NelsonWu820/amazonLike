@@ -16,6 +16,7 @@ export const ITEM_GET = 'ITEM_GET';
 export const ITEMS_ERROR = 'ITEMS_ERROR';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const COMMENT_ADDED = 'COMMENT_ADDED';
+export const COMMENT_REMOVED = 'COMMENT_REMOVED';
 
 
 
