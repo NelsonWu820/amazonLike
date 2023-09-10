@@ -1,9 +1,10 @@
-import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED } from "../actions/types";
+import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED, COMMENT_REMOVED } from "../actions/types";
 
 const initialState = {
     items: [],
     item: null,
-    loading: true
+    loading: true,
+
 }
 
 function itemReducer(state = initialState, action){
@@ -38,7 +39,19 @@ function itemReducer(state = initialState, action){
         case REMOVE_ITEM:
             return {
                 ...state,
-                item: null
+                item: null,
+                loading: false
+            }
+        case COMMENT_REMOVED:
+            return{
+                ...state,
+                item: {
+                    ...state.item,
+                    comments: state.item.comments.filter(
+                        (comment) => comment.id !== payload
+                    )
+                },
+                loading: false
             }
         default:
             return state;
