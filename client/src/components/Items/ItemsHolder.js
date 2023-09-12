@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Rating from '../rating/Rating';
+import {cartAddItem} from '../../actions/cart'
+import { connect } from 'react-redux';
 
 
-const ItemsHolder = ({item : {title, image, price, _id, rating}}) => (
+const ItemsHolder = ({cartAddItem, item : {title, image, price, _id, rating}}) => (
         <div className="col mb-5">
             <div className="card h-100">
                 <img className="card-img-top itemHolder" src={image} alt="..." />
@@ -17,7 +19,7 @@ const ItemsHolder = ({item : {title, image, price, _id, rating}}) => (
                 </div>
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center"><Link className="btn btn-outline-dark mt-auto" to={`/item/${_id}`}>View Details</Link></div>
-                    <div className="text-center"><a className="btn btn-outline-dark mt-auto" >Add To Cart</a></div>
+                    <div className="text-center"><button className="btn btn-outline-dark mt-auto" onClick={() => cartAddItem(_id)}>Add To Cart</button></div>
                 </div>
             </div>
         </div>
@@ -26,7 +28,8 @@ const ItemsHolder = ({item : {title, image, price, _id, rating}}) => (
 
 ItemsHolder.propTypes = {
     item: PropTypes.object.isRequired,
+    cartAddItem: PropTypes.func.isRequired,
 };
 
 
-export default ItemsHolder;
+export default connect(null, {cartAddItem})(ItemsHolder);
