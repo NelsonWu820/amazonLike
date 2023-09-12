@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Cart = require("../../models/Cart");
 const auth = require("../../middleware/auth");
+const {check, validationResult} = require("express-validator");
+
 // @route GET api/cart
 // @desc gets users cart info/id's of items added to cart
 // @access Private
@@ -21,28 +23,50 @@ router.get("/", auth,
 // @route PUT api/cart/:item_id
 // @desc get or create a cart
 // @access Private
-router.put('/:item_id', auth, 
+router.put('/:item_id', auth, check('amount', 'Amount is required').notEmpty(),
     async (req, res) => {
-        const userCart = await Cart.findOne({ user: req.user.id});
-        //if there is no user cart
-        if(!userCart){
-            //create one 
-            const newUserCart = new Cart({
-                user: req.user.id,
-                items: req.params.item_id
-            })
-
-            console.log(newUserCart);
-            await newUserCart.save();
-
-            res.json({ msg : "Created a new user"})
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
         }
 
-        //add a item to item array
-        userCart.items.push(req.params.item_id);
-        await userCart.save();
+        const {amount} = req.body
 
-        res.json({ msg : "New Item added to Cart"});
+        try {
+            const userCart = await Cart.findOne({ user: req.user.id});
+            //if there is no user cart
+            if(!userCart){
+                //create one 
+                const newUserCart = new Cart({
+                    user: req.user.id,
+                })
+                
+                for(let i = 0; i< amount; i++){
+                    newUserCart.items.unshift(req.params.item_id)
+                }
+    
+                await newUserCart.save();
+                console.log("past")  
+    
+                res.json(req.params.item_id)
+            }
+            else{
+                //adds the same item to the beginning of Items array and answer for the redux state to have all 5
+                let answer = []
+                for(let i = 0; i< amount; i++){
+                    userCart.items.unshift(req.params.item_id);
+                    answer[i] = req.params.item_id
+                }
+                
+                await userCart.save();
+        
+                res.json(answer);
+            }
+    
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
     }
 )
 
@@ -58,7 +82,7 @@ router.delete('/:item_id', auth,
                 },
             });
 
-            res.json({ msg : "Item has been deleted from Cart"});
+            res.json(req.params.item_id);
         } catch (error) {
             console.error(error.message);
             return res.status(500).json({ error : "Server Error"});
