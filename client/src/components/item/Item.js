@@ -16,7 +16,7 @@ const Item = ({getItemById, auth: {isAuthenticated}, item:{item, loading}}) => {
 
     return (
         <div>
-            <ItemDetails/>
+            {loading === false && (<ItemDetails/>)  }          
             {isAuthenticated ===true ? (
                 <ItemCommentForm id={id}/>
             ): (
