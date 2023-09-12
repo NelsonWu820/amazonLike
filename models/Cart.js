@@ -7,6 +7,10 @@ const cartSchema = new mongoose.Schema({
 
     items:[{
         type: mongoose.Schema.Types.ObjectId
+    }],
+
+    history:[{
+        type: mongoose.Schema.Types.ObjectId
     }]
 })
 
