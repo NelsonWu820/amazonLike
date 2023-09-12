@@ -69,8 +69,8 @@ router.post("/",
     }
 )
 
-// @route POST api/items/comments/:id
-// @desc adds a comment with a star rating and text
+// @route PUT api/items/comments/:id
+// @desc adds or updates a comment with a star rating and text
 // @access Private
 router.post("/comments/:id", auth, checkObjectID("id"), 
     check("text", "Please input a comment").notEmpty(),
@@ -82,15 +82,8 @@ router.post("/comments/:id", auth, checkObjectID("id"),
         }
         
         try {
-            //initalize item to check if the item has the same user id in comments slready
-            const item = await Items.findById(req.params.id);
-
-            //checks if the user has a comment already
-            if(item.comments.user === req.user.id){
-                return res.status(400).json({ errors: [{ msg: 'User Post already exists' }] });
-            }
-
             //finds item through id in header then populates
+            const item = await Items.findById(req.params.id);
             const user = await User.findById(req.user.id).select("-password");
 
             const newComment = {
@@ -106,12 +99,13 @@ router.post("/comments/:id", auth, checkObjectID("id"),
             //In a bigger application I would not place the averaging here, and would place it into a seperate function that runs periodically 
             //finds the average rating of comment 
             let total = 0;
+            let length = 0;
             item.comments.map((comment) => {
                 total += comment.rating;
+                length++;
             }) 
             //sets rating to average also rounds down 
-            item.rating = Math.round(total/ (item.comments.length));
-
+            item.rating = Math.round(total/ (length));
 
             await item.save();
 
@@ -165,32 +159,38 @@ router.delete("/comments/:item_id/:comment_id", auth,
 // @access Private
 router.put("/comments/dislike/:item_id/:comment_id", auth,
     async (req, res) => {
-        //checks it it already liked the comment
-        const like = await Like.findOne({ comment : req.params.comment_id});
-        //if they already liked it delete it if not it'll go on
-        if(like){
-            await Like.findOneAndDelete({comment: req.params.comment_id});
+        try {
+            //checks it it already liked the comment
+            const like = await Like.findOne({ comment : req.params.comment_id});
+            //if they already liked it delete it if not it'll go on
+            if(like){
+                await Like.findOneAndDelete({comment: req.params.comment_id});
+            }
+    
+            //checks it it already disliked the comment
+            //finds if the user is logged in dislike array
+            const dislike = await Dislike.findOne({ comment : req.params.comment_id})
+            console.log(dislike);
+    
+            //if something is returned 
+            if(dislike){
+                res.json({ msg: "Already Disliked"});
+            }
+    
+            //if null/no dislike
+            const dislikeNew = new Dislike({
+                comment : req.params.comment_id,
+                user: req.user.id
+            })
+    
+            await dislikeNew.save();
+    
+            res.send(dislikeNew);
+            
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
         }
-
-        //checks it it already disliked the comment
-        //finds if the user is logged in dislike array
-        const dislike = await Dislike.findOne({ comment : req.params.comment_id})
-        console.log(dislike);
-
-        //if something is returned 
-        if(dislike){
-            res.json({ msg: "Already Disliked"});
-        }
-
-        //if null/no dislike
-        const dislikeNew = new Dislike({
-            comment : req.params.comment_id,
-            user: req.user.id
-        })
-
-        await dislikeNew.save();
-
-        res.send(dislikeNew);
     }
 )
 
@@ -205,8 +205,8 @@ router.put("/comments/undislike/:item_id/:comment_id", auth,
     
             res.json({ msg : "Dislike Deleted"});
         } catch (error) {
-            console.error(error.message);
-            return res.status(500).json({ error : "Server Error"});
+            console.error(err.message);
+            res.status(500).send('Server Error');
         }
     }
 )
@@ -216,32 +216,37 @@ router.put("/comments/undislike/:item_id/:comment_id", auth,
 // @access Private
 router.put("/comments/like/:item_id/:comment_id", auth,
     async (req, res) => {
-        //checks it it already disliked the comment
-        const dislike = await Dislike.findOne({ comment : req.params.comment_id});
-        //if they already disliked it delete it if not it'll go on
-        if(dislike){
-            await Like.findOneAndDelete({comment: req.params.comment_id});
+        try {
+            //checks it it already disliked the comment
+            const dislike = await Dislike.findOne({ comment : req.params.comment_id});
+            //if they already disliked it delete it if not it'll go on
+            if(dislike){
+                await Like.findOneAndDelete({comment: req.params.comment_id});
+            }
+    
+            //checks it it already disliked the comment
+            //finds if the user is logged in dislike array
+            const like = await Like.findOne({ comment : req.params.comment_id})
+            console.log(like);
+    
+            //if something is returned 
+            if(like){
+                res.json({ msg: "Already Liked"});
+            }
+    
+            //if null/no dislike
+            const likeNew = new Like({
+                comment : req.params.comment_id,
+                user: req.user.id
+            })
+    
+            await likeNew.save();
+    
+            res.send(likeNew);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
         }
-
-        //checks it it already disliked the comment
-        //finds if the user is logged in dislike array
-        const like = await Like.findOne({ comment : req.params.comment_id})
-        console.log(like);
-
-        //if something is returned 
-        if(like){
-            res.json({ msg: "Already Liked"});
-        }
-
-        //if null/no dislike
-        const likeNew = new Like({
-            comment : req.params.comment_id,
-            user: req.user.id
-        })
-
-        await likeNew.save();
-
-        res.send(likeNew);
     }
 )
 
@@ -256,8 +261,8 @@ router.put("/comments/unlike/:item_id/:comment_id", auth,
     
             res.json({ msg : "Like Deleted"});
         } catch (error) {
-            console.error(error.message);
-            return res.status(500).json({ error : "Server Error"});
+            console.error(err.message);
+            res.status(500).send('Server Error');
         }
     }
 )
@@ -327,6 +332,5 @@ async function fetchDataFromAPI() {
         console.error('Error Deleteing all items:', err);
     }
   }
-
 
 module.exports = router;
