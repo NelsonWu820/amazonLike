@@ -1,41 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getItemById} from '../../actions/item';
 import {cartRemoveItem} from '../../actions/cart';
 
 
-const CartItem = ({id, cartRemoveItem, getItemById, item: {loading, item: {title, image, rating, tag, price}}}) => {
+const CartItem = ({id, item_id, cartRemoveItem, itemObject: {image}}) => {
     useEffect(() => {
-        getItemById(id);    
-    }, [getItemById, id])
+
+    }, [cartRemoveItem])
+    
+    
 
     return (
-        <div>
-            {loading === false && (
-                <div>
-                    <h1>{title}</h1>
-                    <img src={image} alt="../" style={{width: 300, height: 300}}></img>
-                    <div>{rating}</div>
-                    <div>{tag}</div>
-                    <div>{price}</div>
+        <div id={id}>
+                <div key={id}>
+                    <img src={image}/>
                     <button onClick={() => cartRemoveItem(id)}>Delete</button>
                 </div>
-            )}
         </div>
     );
 };
 
 
 CartItem.propTypes = {
-    getItemById: PropTypes.func.isRequired,
     cartRemoveItem: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    item: state.item
-})
 
-
-export default connect(mapStateToProps, {getItemById, cartRemoveItem})(CartItem);
+export default connect(null, { cartRemoveItem})(CartItem);
