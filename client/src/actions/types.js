@@ -17,10 +17,11 @@ export const ITEMS_ERROR = 'ITEMS_ERROR';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const COMMENT_ADDED = 'COMMENT_ADDED';
 export const COMMENT_REMOVED = 'COMMENT_REMOVED';
+export const CART_GET = 'CART_GET';
 export const CART_ITEM_ADDED = 'CART_ITEM_ADDED';
 export const CART_ITEM_DELTED = 'CART_ITEM_DELTED';
+export const HISTORY_GET = 'HISTORY_GET';
 export const HISTORY_ITEM_ADDED = 'HISTORY_ITEM_ADDED';
-export const HISTORY_ITEM_DELTED = 'HISTORY_ITEM_DELTED';
 
 
 
