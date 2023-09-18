@@ -1,10 +1,54 @@
-import React from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { getCart } from '../../actions/cart';
 import { connect } from 'react-redux';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
-const Navbar = ({logout, cart : {cart}}) => {
+const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
+    useEffect(() => {
+        getCart();
+    },[getCart])
+
+    const authNav = (
+        <Fragment>
+            <Link className="btn btn-outline-dark" type="submit" to='/cart'>
+                <i className="bi-cart-fill me-1"></i>
+                    Cart
+                <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.length}</span>
+            </Link>
+            <Link className="btn btn-outline-dark" type="submit" to='/history'>
+                <i className="bi-cart-fill me-1"></i>
+                    Purchase History
+            </Link>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li className="nav-item">
+                    <a className="nav-link active" onClick={logout} href="#!">Logout</a>
+                </li>
+            </ul>
+        </Fragment>
+    )
+
+    const guestNav = (
+        <Fragment>
+            <Link className="btn btn-outline-dark" type="submit" to='/cart'>
+                <i className="bi-cart-fill me-1"></i>
+                    Cart
+                <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.length}</span>
+            </Link>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li className="nav-item">
+                    <Link className="nav-link active" to='/login'>Login</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link active" to='/register'>Sign up</Link>
+                </li>
+            </ul>
+        </Fragment>
+    )
+    
     return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container px-4 px-lg-5">
@@ -23,24 +67,15 @@ const Navbar = ({logout, cart : {cart}}) => {
                             <li><Link className="dropdown-item" to="#!">New Arrivals</Link></li>
                         </ul>
                     </li>
-                </ul>
-                <form className="d-flex">
-                    <button className="btn btn-outline-dark" type="submit">
-                        <i className="bi-cart-fill me-1"></i>
-                            <Link to='/cart'>Cart</Link>
-                        <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.length}</span>
-                    </button>
-                </form>
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/login'>Login</Link>
+                    <li className="nav-item dropdown">
+                    <DropdownButton id="dropdown-basic-button" title="Filter Tags">
+                        <Dropdown.Item href="/search">Men's clothing</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Jewelery</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
+                        <Dropdown.Item href="#/action-4">omen's clothing</Dropdown.Item>
+                    </DropdownButton>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/register'>Sign up</Link>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link active" onClick={logout} href="#!">Logout</a>
-                    </li>
+                    <Fragment>{isAuthenticated ? authNav : guestNav}</Fragment>
                 </ul>
             </div>
         </div>
@@ -50,11 +85,13 @@ const Navbar = ({logout, cart : {cart}}) => {
 
 Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
-    cart: PropTypes.object.isRequired
+    cart: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    cart: state.cart,
+    auth: state.auth
 })
 
-export default connect(mapStateToProps, {logout})(Navbar);
+export default connect(mapStateToProps, {logout, getCart})(Navbar);
