@@ -145,7 +145,7 @@ router.delete("/comments/:item_id/:comment_id", auth,
 
             await item.save();
 
-            res.json(item.comments);
+            res.json(req.params.comment_id);
 
         } catch (error) {
             console.error(error.message);
