@@ -10,18 +10,25 @@ const ItemCommentForm = ({addComment, deleteComment, id, auth: {user: {_id}}, it
         rating: 0
     });
 
+    const {text, rating} = formData;
+
     //used to rerender state when adding or deleteing comment
     const[check, setCheck] = useState(false)
-
     let answer = false;
     
     //if the have a commment already fill in the state and don't let them edit it only delete
     const checkComment = (user_id) => {
+        console.log(item.comments.length);
+        answer = false;
+        if(item.comments.length === 0) {
+            return answer;
+        };
         item.comments.map((comment) => {
             if(user_id.toString() === comment.user.toString()){
                 setFormData({...formData, text: comment.text, rating: comment.rating})
                 setCheck(true)
                 answer = true;
+                return answer;
             }
         })
         setCheck(answer);
@@ -29,10 +36,8 @@ const ItemCommentForm = ({addComment, deleteComment, id, auth: {user: {_id}}, it
     }
 
     useEffect(() => {
-        checkComment(_id)
-    },[])
-
-    const {text, rating} = formData;
+        checkComment(_id);
+    },[id])
 
     const onClick = (num) => {
         setFormData({...formData, rating: num});
@@ -60,7 +65,6 @@ const ItemCommentForm = ({addComment, deleteComment, id, auth: {user: {_id}}, it
     const deleteCommentById = (user_id) => {
         item.comments.map((comment) => {
             if(user_id.toString() === comment.user.toString()){
-                console.log('id: ' + id + 'comment_id: ' + comment._id)
                 comment_id = comment._id;
             }
         })
@@ -69,7 +73,7 @@ const ItemCommentForm = ({addComment, deleteComment, id, auth: {user: {_id}}, it
 
     return (
         <div>
-            { check === true? (
+            {check === true? (
                 <div>
                     <div className="ratings-wrapper">
                         <div className="ratings">
@@ -120,6 +124,7 @@ const ItemCommentForm = ({addComment, deleteComment, id, auth: {user: {_id}}, it
 ItemCommentForm.propTypes = {
     addComment: PropTypes.func.isRequired,
     deleteComment: PropTypes.func.isRequired,
+    getItemById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
