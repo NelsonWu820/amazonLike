@@ -6,11 +6,29 @@ const cartSchema = new mongoose.Schema({
     },
 
     items:[{
-        type: mongoose.Schema.Types.ObjectId
-    }],
+        id: {
+            type: mongoose.Schema.Types.ObjectId
+        },
 
-    history:[{
-        type: mongoose.Schema.Types.ObjectId
+        rating : {
+            type: Number
+        },
+    
+        title: {
+            type: String
+        },
+    
+        image : {
+            type: String
+        },
+    
+        tag: {
+            type: String
+        },
+    
+        price: {
+            type: Number
+        }
     }]
 })
 
