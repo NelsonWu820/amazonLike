@@ -11,27 +11,29 @@ import ItemComment from './ItemComment';
 const Item = ({getItemById, auth: {isAuthenticated}, item:{item, loading}}) => {
     const { id } = useParams();
     useEffect(() => {
-        getItemById(id);    
-    }, [getItemById, id])
+       getItemById(id);    
+    }, [id])
 
-    return (
-        <div>
-            {loading === false && (<ItemDetails/>)  }          
-            {isAuthenticated ===true ? (
-                <ItemCommentForm id={id}/>
-            ): (
-                <div>Please login to make an account but have it with comment form inside the comment and login link</div>
-            )}
-            {!loading && item.comments.length > 0 ? (
-                item.comments.map((comment) => <ItemComment comment={comment}/>)
-            ): (
-                <h1>No comments yet</h1>
-            )}
-            <footer className="py-5 bg-dark">
-                <div className="container"><p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-            </footer>
-        </div>
-    );
+    if(loading === false){
+        return (
+            <div>
+                <ItemDetails/>     
+                {isAuthenticated ===true ? (
+                    <ItemCommentForm id={id}/>
+                ): (
+                    <div>Please login to make an account but have it with comment form inside the comment and login link</div>
+                )}
+                {item.comments.length > 0 ? (
+                    item.comments.map((comment) => <ItemComment comment={comment}/>)
+                ): (
+                    <h1>No comments yet</h1>
+                )}
+                <footer className="py-5 bg-dark">
+                    <div className="container"><p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+                </footer>
+            </div>
+        );
+    }
 };
 
 
