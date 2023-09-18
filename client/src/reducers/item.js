@@ -2,7 +2,16 @@ import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED, COMMENT_R
 
 const initialState = {
     items: [],
-    item: null,
+    item: {
+        id: '',
+        rating: 0,
+        title: '',
+        image: '',
+        description: '',
+        tag: '',
+        price: '',
+        comments: []
+    },
     loading: true,
 
 }
@@ -16,12 +25,12 @@ function itemReducer(state = initialState, action){
                 item: {...state.item, comments: payload},
                 loading: false
             }
+        //sets loading to be true so that when going back to home page comments will have to load first then it can take from state
         case ITEMS_GET:
             return {
                 ...state,
                 items: payload,
-                item: payload[0],
-                loading: false
+                loading: true
             }
         case ITEM_GET:
             return {
@@ -48,7 +57,7 @@ function itemReducer(state = initialState, action){
                 item: {
                     ...state.item,
                     comments: state.item.comments.filter(
-                        (comment) => comment.id !== payload
+                        (comment) => comment._id.toString() !== payload.toString()
                     )
                 },
                 loading: false
