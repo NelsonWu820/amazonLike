@@ -9,6 +9,9 @@ import ProtectedRoute from './components/routing/ProtectedRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import ProfileForm from './components/profile-form/ProfileForm';
 import Item from './components/item/Item';
+import Cart from './components/cart/Cart';
+import History from './components/history/History';
+import Search from './components/search/Search';
 
 import setAuthToken from './utils/setAuthToken';
 import { LOGOUT } from './actions/types';
@@ -17,7 +20,6 @@ import { loadUser } from './actions/auth';
 import store from './store';
 import { Provider } from 'react-redux';
 import { useEffect } from 'react';
-import Cart from './components/cart/Cart';
 
 function App() {
   useEffect(() => {
@@ -48,6 +50,8 @@ function App() {
           <Route path="dashboard" element={<ProtectedRoute component={Dashboard} />}/>
           <Route path="create-profile" element={<ProtectedRoute component={ProfileForm} />}/>
           <Route path="cart" element={<Cart/>}/>
+          <Route path="history" element={<History/>}/>
+          <Route path="search" element={<Search/>}/>
           <Route path='item/:id' element = { <Item/> }/>
         </Routes>
       </Router>
