@@ -25,6 +25,22 @@ router.get("/",
     }
 )
 
+// @route GET api/items/search/:tag
+// @desc gives a list of items with a certain tag  
+// @access Public
+router.get("/search/:tag", 
+    async (req, res) => {
+        //gets all items with the tag
+        const items = await Items.find({tag: req.params.tag});
+        try {
+            return res.json(items);
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error : "Server Error"});
+        }
+    }
+)
+
 // @route GET api/items/:id
 // @desc gives an item by id  
 // @access Public
