@@ -34,6 +34,24 @@ export const getItemById = (id) => async (dispatch) => {
     }
 }
 
+//get items by there tag
+export const getItemByTag = (tag) => async (dispatch) => {
+    try {
+        const res = await api.get(`/items/search/${tag}`);
+
+        dispatch({
+            type: ITEMS_GET,
+            payload: res.data
+        });
+
+    } catch (err) {
+        console.log("Get item by id error", err);
+        dispatch({
+            type: ITEMS_ERROR
+        })
+    }
+}
+
 //add comment with item id
 export const addComment = (id, formData) => async (dispatch) => {
     try {
