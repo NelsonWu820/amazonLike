@@ -4,8 +4,6 @@ import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import { getCart } from '../../actions/cart';
 import { connect } from 'react-redux';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
     useEffect(() => {
@@ -59,21 +57,15 @@ const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
                     <li className="nav-item"><Link className="nav-link active" aria-current="page" to="/">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="#!">About</Link></li>
                     <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</Link>
+                        <li className="nav-item dropdown">
+                        <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-search"></i>Search Tags</Link>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><Link className="dropdown-item" to="#!">All Products</Link></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><Link className="dropdown-item" to="#!">Popular Items</Link></li>
-                            <li><Link className="dropdown-item" to="#!">New Arrivals</Link></li>
+                            <li><Link className="dropdown-item" to="search/men's clothing">Men's clothing</Link></li>
+                            <li><Link className="dropdown-item" to="search/jewelery">Jewelery</Link></li>
+                            <li><Link className="dropdown-item" to="search/electronics">Electronics</Link></li>
+                            <li><Link className="dropdown-item" to="search/women's clothing">Women's clothing</Link></li>
                         </ul>
-                    </li>
-                    <li className="nav-item dropdown">
-                    <DropdownButton id="dropdown-basic-button" title="Filter Tags">
-                        <Dropdown.Item href="/search">Men's clothing</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Jewelery</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Electronics</Dropdown.Item>
-                        <Dropdown.Item href="#/action-4">omen's clothing</Dropdown.Item>
-                    </DropdownButton>
+                        </li>
                     </li>
                     <Fragment>{isAuthenticated ? authNav : guestNav}</Fragment>
                 </ul>
