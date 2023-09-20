@@ -51,7 +51,7 @@ function App() {
           <Route path="create-profile" element={<ProtectedRoute component={ProfileForm} />}/>
           <Route path="cart" element={<Cart/>}/>
           <Route path="history" element={<History/>}/>
-          <Route path="search" element={<Search/>}/>
+          <Route path="search/:tag" element={<Search/>}/>
           <Route path='item/:id' element = { <Item/> }/>
         </Routes>
       </Router>
