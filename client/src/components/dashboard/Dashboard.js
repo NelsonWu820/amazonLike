@@ -14,7 +14,7 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth:
     return (
         <div>
             <h1>Dashboard</h1>
-            <div>Welcome {user && user.name} </div>
+            <h3>Welcome {user && user.name} </h3>
             {profile !== null ? (
                 <>
                     <ProfileForm/>
@@ -24,10 +24,12 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth:
                 </>
             ):(
                 <>
-                    <div>Please make a profile</div>
-                    <Link to="/create-profile">
-                        Make Profile
-                    </Link>
+                    <h5>Please make a profile</h5>
+                    <button>
+                        <Link to="/create-profile" style={{color: 'black'}}>
+                            Make Profile
+                        </Link>
+                    </button>
                 </>
             )}
         </div>
