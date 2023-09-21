@@ -25,6 +25,7 @@ export const register = (formData) => async dispatch => {
     
     try {
         const res = await api.post('/users', formData);
+        setAuthToken(res.data.token);
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -75,7 +76,9 @@ export const login = (email, password) => async dispatch => {
     }
 }
 
-export const logout = () => 
-        ({
-            type: LOGOUT
-        })
+export const logout = () => async dispatch =>{
+    setAuthToken();
+    dispatch({
+        type: LOGOUT
+    })
+}
