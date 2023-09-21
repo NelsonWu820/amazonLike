@@ -54,26 +54,25 @@ export const updateProfile = (formData, edit = false) => async dispatch => {
 //delete profile
 export const deleteAccount = () => async dispatch => {
     if(window.confirm('This can not be undone')){
-
+        try {
+            await api.delete('/profile');
+    
+            dispatch({type: ACCOUNT_DELETE})
+            dispatch({type: LOGOUT})
+    
+            dispatch(setAlert("Profile Deleted"))
+        } catch (err) {
+            console.log("Delete Profile Error:", err);
+            const errors = err.response.data.errors;
+    
+            if (errors) {
+              errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+            }
+    
+            dispatch({
+                type: PROFILE_ERROR
+            });
+        }
     }
     
-    try {
-        await api.delete('/profile');
-
-        dispatch({type: ACCOUNT_DELETE})
-        dispatch({type: LOGOUT})
-
-        dispatch(setAlert("Profile Deleted"))
-    } catch (err) {
-        console.log("Delete Profile Error:", err);
-        const errors = err.response.data.errors;
-
-        if (errors) {
-          errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-        }
-
-        dispatch({
-            type: PROFILE_ERROR
-        });
-    }
 }
