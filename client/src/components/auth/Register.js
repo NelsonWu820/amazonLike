@@ -35,56 +35,50 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
 
     return (
-    <section className="container">
-        <h1 className="large text-primary">Sign Up</h1>
-        <p className="lead">
-          <i className="fas fa-user" /> Create Your Account
-        </p>
-        <form className="form" onSubmit={onSubmit}>
-            <div className="form-group">
-                <input
-                type="name"
-                placeholder="Name"
-                name="name"
-                value={name}
-                onChange={onChange}
-                />
+        <section className="form container">
+            <div className='sign form'>
+                <header>Signup</header>
+                <form className="form" onSubmit={onSubmit}>
+                    <input
+                        type="name"
+                        placeholder="Enter your name"
+                        name="name"
+                        value={name}
+                        onChange={onChange}
+                    />
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        name="email"
+                        value={email}
+                        onChange={onChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        minLength="6"
+                        value={password}
+                        onChange={onChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="password2"
+                        minLength="6"
+                        value={password2}
+                        onChange={onChange}
+                    />
+                    <input type="submit" className="button" value="Signup"/>
+                </form>
+                <div className="signup">
+                    <span className="signup">Already have an account?
+                    <div></div>
+                    <Link to="/login">Sign In</Link>
+                    </span>
+                </div>
             </div>
-            <div className="form-group">
-                <input
-                type="email"
-                placeholder="Email Address"
-                name="email"
-                value={email}
-                onChange={onChange}
-                />
-            </div>
-            <div className="form-group">
-                <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                minLength="6"
-                value={password}
-                onChange={onChange}
-                />
-            </div>
-            <div className="form-group">
-                <input
-                type="password"
-                placeholder="Confirm Password"
-                name="password2"
-                minLength="6"
-                value={password2}
-                onChange={onChange}
-                />
-            </div>
-            <input type="submit" className="btn btn-primary" value="Sign Up" />
-        </form>
-        <p className="my-1">
-          Have have an account? <Link to="/login">Sign In</Link>
-        </p>
-      </section>
+        </section>
     );
 };
 
