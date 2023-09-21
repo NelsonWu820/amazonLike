@@ -1,4 +1,4 @@
-import { CART_GET, CART_ITEM_ADDED, CART_ITEM_DELTED, HISTORY_GET, HISTORY_ITEM_ADDED } from "../actions/types";
+import { CART_GET, CART_ITEM_ADDED, CART_ITEM_DELTED, HISTORY_GET, HISTORY_ITEM_ADDED, LOGOUT } from "../actions/types";
 
 const initialState = {
     cart: [],
@@ -57,6 +57,13 @@ function cartReducer(state = initialState, action){
                 cart: [],
                 history: [...cartState, ...state.history],
                 historyLoading: false
+            }
+        case LOGOUT:
+            return{
+                cart: [],
+                history: [],
+                loading: true,
+                historyLoading: true,
             }
         default:
             return state
