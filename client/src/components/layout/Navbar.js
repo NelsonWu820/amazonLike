@@ -1,33 +1,14 @@
 import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import { getCart } from '../../actions/cart';
 import { connect } from 'react-redux';
+import AuthLinks from './AuthLinks';
 
-const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
+const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLoading}}) => {
     useEffect(() => {
         getCart();
-    },[getCart])
-
-    const authNav = (
-        <Fragment>
-            <Link className="btn btn-outline-dark" type="submit" to='/cart'>
-                <i className="bi-cart-fill me-1"></i>
-                    Cart
-                <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.length}</span>
-            </Link>
-            <Link className="btn btn-outline-dark" type="submit" to='/history'>
-                <i className="bi-cart-fill me-1"></i>
-                    Purchase History
-            </Link>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li className="nav-item">
-                    <a className="nav-link active" onClick={logout} href="#!">Logout</a>
-                </li>
-            </ul>
-        </Fragment>
-    )
+    },[getCart, isAuthenticated])
 
     const guestNav = (
         <Fragment>
@@ -67,7 +48,7 @@ const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
                         </ul>
                         </li>
                     </li>
-                    <Fragment>{isAuthenticated ? authNav : guestNav}</Fragment>
+                    <Fragment>{isAuthenticated && navbarLoading === false ? (<AuthLinks user={user} length={cart.length}/>): guestNav}</Fragment>
                 </ul>
             </div>
         </div>
@@ -76,7 +57,6 @@ const Navbar = ({logout, getCart, cart : {cart}, auth : {isAuthenticated}}) => {
 }
 
 Navbar.propTypes = {
-    logout: PropTypes.func.isRequired,
     cart: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
 }
@@ -86,4 +66,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {logout, getCart})(Navbar);
+export default connect(mapStateToProps, {getCart})(Navbar);
