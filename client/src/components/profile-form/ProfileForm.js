@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { Link, useMatch, useNavigate } from 'react-router-dom';
+import {useMatch, useNavigate } from 'react-router-dom';
 import { getCurrentProfile, updateProfile } from '../../actions/profile';
 
 const initialState = {
@@ -57,22 +57,24 @@ const ProfileForm = ({profile: {profile, loading}, getCurrentProfile, updateProf
     }
 
     return (
+        
         <div>
-            <h1 className="large text-primary">
-                {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
-            </h1>
-            <form onSubmit={onSubmit}>
-                <input type='text' placeholder='address' name='address' value={address} onChange={onChange}/>
-                <input type='text' placeholder='card1' name='card1' value={card1} onChange={onChange}/>
-                <input type='text' placeholder='card2' name='card2' value={card2} onChange={onChange}/>
-                <input type='text' placeholder='card3' name='card3' value={card3} onChange={onChange}/>
-                <input type='text' placeholder='gender' name='sex' value={sex} onChange={onChange}/>
-                <input type='text' placeholder='age' name='age' value={age} onChange={onChange}/>
-                <input type='submit'/>
-            </form>
-            <Link to="/dashboard">
-                Go Back
-            </Link>
+            <section className="form container">
+                <div className='profile form'>
+                    <header>
+                        {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
+                    </header>
+                    <form className="form" onSubmit={onSubmit}>
+                        <input type='text' placeholder='address' name='address' value={address} onChange={onChange}/>
+                        <input type='text' placeholder='card1' name='card1' value={card1} onChange={onChange}/>
+                        <input type='text' placeholder='card2' name='card2' value={card2} onChange={onChange}/>
+                        <input type='text' placeholder='card3' name='card3' value={card3} onChange={onChange}/>
+                        <input type='text' placeholder='gender' name='sex' value={sex} onChange={onChange}/>
+                        <input type='text' placeholder='age' name='age' value={age} onChange={onChange}/>
+                        <input type='submit'className="button" value="Submit"/>
+                    </form>
+                </div>
+            </section>
         </div>
     );
 };
