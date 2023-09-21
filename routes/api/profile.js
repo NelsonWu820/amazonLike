@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
+const History = require("../../models/History.js");
+const Cart = require("../../models/Cart");
 const { check, validationResult } = require("express-validator");
 
 // @route GET api/profile
@@ -65,13 +67,15 @@ router.post("/edit", auth,
 )
 
 // @route DELETE api/profile
-// @desc Deletes profile and all posts also user
+// @desc Deletes profile, history, cart, and user
 // @access Private
 router.delete("/", auth, 
     async (req, res) => {
         try {
             await Promise.all([
-                //add comments and cart
+                //deletes
+                History.findOneAndDelete({ user: req.user.id}),
+                Cart.findOneAndDelete({ user: req.user.id}),
                 Profile.findOneAndDelete({ user: req.user.id}),
                 User.findOneAndDelete({ _id: req.user.id})
             ])
