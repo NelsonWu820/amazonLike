@@ -25,7 +25,7 @@ function profileReducer(state = initalState, action){
         case ACCOUNT_DELETE:
             return {
                 profile: null,
-                laoding: false,
+                loading: false,
                 error: []
             }
 
