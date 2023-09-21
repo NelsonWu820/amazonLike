@@ -7,7 +7,7 @@ function alertReducer(state = initialState, action) {
         case ALERT_SET:
             return [...state, payload];
         case ALERT_REMOVE:
-            return state.filter((alert) => alert.id !== payload.id);
+            return state.filter((alert) => alert.id !== payload);
         default:
             return state;
     }
