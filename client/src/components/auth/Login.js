@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link, Navigate } from 'react-router-dom';
 import { login } from '../../actions/auth';
 import { connect } from 'react-redux';
-import setAuthToken from '../../utils/setAuthToken';
 
 
 const Login = ({login, isAuthenticated}) => {
@@ -22,44 +21,40 @@ const Login = ({login, isAuthenticated}) => {
       e.preventDefault();
       login(email, password);
     }
-
-    setAuthToken(localStorage.token)
     
     if(isAuthenticated){
       return <Navigate to="/dashboard" />
     }
 
     return (
-    <section className="container">
-        <h1 className="large text-primary">Sign In</h1>
-        <p className="lead">
-          <i className="fas fa-user" /> Sign Into Your Account
-        </p>
-        <form className="form" onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              value={email}
-              onChange={onChange}
+    <section className="form container">
+        <div className="login form">
+          <header>Login</header>
+          <form className="form" onSubmit={onSubmit}>
+            <input 
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+                value={email}
+                onChange={onChange}
             />
-          </div>
-          <div className="form-group">
             <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              minLength="6"
-              value={password}
-              onChange={onChange}
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                minLength="6"
+                value={password}
+                onChange={onChange}
             />
+            <input type="submit" className="button" value="Login"/>
+          </form>
+          <div className="signup">
+            <span className="signup">Don't have an account?
+              <div></div>
+              <Link to="/register">Sign Up</Link>
+            </span>
           </div>
-          <input type="submit" className="btn btn-primary" value="Login" />
-        </form>
-        <p className="my-1">
-          Don't have an account? <Link to="/register">Sign Up</Link>
-        </p>
+        </div>
       </section>
     );
 };
