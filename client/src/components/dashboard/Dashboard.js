@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentProfile } from '../../actions/profile';
 import ProfileForm from '../profile-form/ProfileForm'
 
 
-const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth: {user} }) => {
+const Dashboard = ({ getCurrentProfile, profile: {profile}, auth: {user} }) => {
     useEffect(() => {
         getCurrentProfile();
     }, [getCurrentProfile])
@@ -18,9 +18,6 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, profile: {profile}, auth:
             {profile !== null ? (
                 <>
                     <ProfileForm/>
-                    <button onClick={() => deleteAccount()}>
-                        Delete Account
-                    </button>
                 </>
             ):(
                 <>
@@ -49,4 +46,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {getCurrentProfile, deleteAccount})(Dashboard);
+export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);
