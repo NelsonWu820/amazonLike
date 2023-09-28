@@ -1,4 +1,5 @@
 import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED, COMMENT_REMOVED } from "./types";
+import { setAlert } from "./alert";
 import api from '../utils/api';
 
 export const getAllItems = () => async dispatch =>{
@@ -63,8 +64,12 @@ export const addComment = (id, formData) => async (dispatch) => {
         });
 
     } catch (err) {
-        console.log("make comment error", err);
-        
+        console.log("Make Comment error:", err);
+        const errors = err.response.data.errors;
+
+        if(errors){
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')))
+        }
     }
 }
 
