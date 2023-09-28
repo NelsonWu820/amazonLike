@@ -1,5 +1,4 @@
 import { CART_GET, CART_ITEM_ADDED, CART_ITEM_DELTED, HISTORY_GET, HISTORY_ITEM_ADDED } from "../actions/types";
-import { setAlert } from "./alert";
 import api from '../utils/api';
 
 //get all items in cart db
