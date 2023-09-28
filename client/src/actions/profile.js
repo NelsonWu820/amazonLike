@@ -60,7 +60,7 @@ export const deleteAccount = () => async dispatch => {
             dispatch({type: ACCOUNT_DELETE})
             dispatch({type: LOGOUT})
     
-            dispatch(setAlert("Profile Deleted"))
+            dispatch(setAlert("Profile Deleted", 'deleted'))
         } catch (err) {
             console.log("Delete Profile Error:", err);
             const errors = err.response.data.errors;
