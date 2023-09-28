@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const History = require("../../models/History.js");
+const Items = require("../../models/Items.js");
 const Cart = require("../../models/Cart");
 const { check, validationResult } = require("express-validator");
 
@@ -67,17 +68,26 @@ router.post("/edit", auth,
 )
 
 // @route DELETE api/profile
-// @desc Deletes profile, history, cart, and user
+// @desc Deletes profile, history, cart, comments, and user
 // @access Private
 router.delete("/", auth, 
     async (req, res) => {
         try {
+
+            const items = await Items.find({}).select("comments");
+            const user = req.user.id;
+
+            //pulls the user comments from every item if they have
+            for (const item of items) {
+                await Items.updateOne({ _id: item._id }, { $pull: { comments: { user } } });
+            }           
+            
             await Promise.all([
-                //deletes
-                History.findOneAndDelete({ user: req.user.id}),
-                Cart.findOneAndDelete({ user: req.user.id}),
-                Profile.findOneAndDelete({ user: req.user.id}),
-                User.findOneAndDelete({ _id: req.user.id})
+                //deletes all
+                History.findOneAndDelete({ user: user}),
+                Cart.findOneAndDelete({ user: user}),
+                Profile.findOneAndDelete({ user: user}),
+                User.findOneAndDelete({ _id: user})
             ])
             return res.json({ msg: "User Deleted"})
         } catch (error) {
