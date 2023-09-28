@@ -1,4 +1,4 @@
-import { CART_GET, CART_ITEM_ADDED, CART_ITEM_DELTED, HISTORY_GET, HISTORY_ITEM_ADDED, LOGOUT } from "../actions/types";
+import { CART_GET, CART_ITEM_ADDED, CART_ITEM_DELTED, CART_ITEM_ERROR, HISTORY_GET, HISTORY_ITEM_ADDED, LOGOUT } from "../actions/types";
 
 const initialState = {
     cart: [],
@@ -28,6 +28,10 @@ function cartReducer(state = initialState, action){
                 ...state,
                 cart: [...itemsState, ...state.cart],
                 loading: false
+            }
+        case CART_ITEM_ERROR:
+            return {
+                ...state
             }
         case CART_ITEM_DELTED:
             const newState = state.cart.filter((item) =>(
