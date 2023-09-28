@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
+import { deleteAccount } from '../../actions/profile';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const AuthLinks = ({logout, user, length}) => (
-            <li className="nav-item dropdown">
-                <li>
+const AuthLinks = ({deleteAccount, logout, user, length}) => (
+            <ul className="navbar  navbar-light bg-light">
+                <li className="nav-item">
                     <Link className="btn btn-outline-dark" type="submit" to='/cart'>
                         <i className="bi-cart-fill me-1"></i>
                             Cart
@@ -15,8 +16,8 @@ const AuthLinks = ({logout, user, length}) => (
                 </li>
                 <li className="nav-item dropdown">
                     <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={user.avatar} className="navbar-avatar"></img>
-                        {user.name}
+                        <div className="p-2"><span className="round"><img src={user.avatar} alt="user" width="50"/></span></div>
+                        <div>{user.name}</div>
                     </Link>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
@@ -31,20 +32,24 @@ const AuthLinks = ({logout, user, length}) => (
                             </Link>
                         </li>
                         <li>
-                            <li className="nav-item">
-                                <Link className="nav-link active" onClick={logout} to='/'>Logout</Link>
-                            </li>
+                            <button onClick={() => deleteAccount()}>
+                                Delete Account
+                            </button>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link active" onClick={logout} to='/'>Logout</Link>
                         </li>
                     </ul>
                 </li>
-            </li>
+            </ul>
 );
 
 
 AuthLinks.propTypes = {
     user: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired,
+    deleteAccount: PropTypes.func.isRequired,
 };
 
 
-export default connect(null, {logout})(AuthLinks);
+export default connect(null, {logout, deleteAccount})(AuthLinks);
