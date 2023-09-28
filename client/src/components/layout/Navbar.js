@@ -38,17 +38,17 @@ const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLo
                     <li className="nav-item"><Link className="nav-link active" aria-current="page" to="/">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="#!">About</Link></li>
                     <li className="nav-item dropdown">
-                        <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-search"></i>Search Tags</Link>
+                        <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="bi bi-search"></i>Search Tags</Link>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link className="dropdown-item" to="search/men's clothing">Men's clothing</Link></li>
                             <li><Link className="dropdown-item" to="search/jewelery">Jewelery</Link></li>
                             <li><Link className="dropdown-item" to="search/electronics">Electronics</Link></li>
                             <li><Link className="dropdown-item" to="search/women's clothing">Women's clothing</Link></li>
                         </ul>
-                        </li>
                     </li>
-                    <Fragment>{isAuthenticated && navbarLoading === false ? (<AuthLinks user={user} length={cart.length}/>): guestNav}</Fragment>
+                    <li>
+                        {isAuthenticated && navbarLoading === false ? (<AuthLinks user={user} length={cart.length}/>): guestNav}
+                    </li>
                 </ul>
             </div>
         </div>
