@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Rating from '../rating/Rating';
+import RatingItems from '../rating/RatingItems';
 import {cartAddItem} from '../../actions/cart'
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
@@ -9,7 +9,7 @@ import { setAlert } from '../../actions/alert';
 const amount = 1;
 
 
-const ItemsHolder = ({isAuthenticated, cartAddItem, item : {title, image, price, _id, rating}}) => (
+const ItemsHolder = ({isAuthenticated, cartAddItem, setAlert, item : {title, image, price, _id, rating}}) => (
         <div className="col mb-5">
             <div className="card h-100">
                 <img className="card-img-top itemHolder" src={image} alt="..." />
@@ -18,7 +18,7 @@ const ItemsHolder = ({isAuthenticated, cartAddItem, item : {title, image, price,
                         <h5 className="fw-bolder">{title}</h5>
                         ${price}
                     </div>
-                    <Rating rating={rating}/>
+                    <RatingItems rating={rating}/>
                 </div>
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center"><Link className="btn btn-outline-dark mt-auto" to={`/item/${_id}`}>View Details</Link></div>
@@ -29,7 +29,6 @@ const ItemsHolder = ({isAuthenticated, cartAddItem, item : {title, image, price,
                             cartAddItem({amount}, _id);
                         }
                         else{
-                            console.log(isAuthenticated)
                             setAlert("Please login to add to cart", "danger");
                         }
                     }}>Add To Cart</button></div>
@@ -42,7 +41,8 @@ const ItemsHolder = ({isAuthenticated, cartAddItem, item : {title, image, price,
 ItemsHolder.propTypes = {
     item: PropTypes.object.isRequired,
     cartAddItem: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -50,4 +50,4 @@ const mapStateToProps = state => ({
   });
 
 
-export default connect(mapStateToProps, {cartAddItem})(ItemsHolder);
+export default connect(mapStateToProps, {cartAddItem, setAlert})(ItemsHolder);
