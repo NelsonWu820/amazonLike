@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
 import {connect} from 'react-redux';
@@ -17,14 +17,19 @@ const Cart = ({getCart, historyAddItem, cart: {cart, loading}}) => {
 
 
     return(
-        <section className='cart container'>
-            <div className='cart'>
-                {loading === false && (cart.map((item) => (
-                        <CartItem id={item._id} item_id={item.id} itemObject={item}/>
-                )))}
+        <section className='cart-top-container'>
+            <section className='cart container'>
+                <div className='cart'>
+                    {loading === false && (cart.map((item) => (
+                            <CartItem id={item._id} key={item._id} item_id={item.id} itemObject={item}/>
+                    )))}
+                </div>
+                {/*gets the cart when btn is clicked just incase for edge cases*/}
+                <button className="purchase-all-btn" onClick={() => purchase(cart)}>Purchase All</button>
+            </section>
+            <div className="py-5 bg-dark footer-container">
+                <div ><p className="m-0 text-center text-white">Copyright &copy; AmazonLike 2023 - Published by Nelson Wu</p></div>
             </div>
-            {/*gets the cart whne btn is clicked just incase for edge cases*/}
-            <button onClick={() => purchase(cart)}>Purchase All</button>
         </section>
     );
 };
