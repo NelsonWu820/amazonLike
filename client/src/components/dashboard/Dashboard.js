@@ -36,7 +36,6 @@ const Dashboard = ({ getCurrentProfile, profile: {profile}, auth: {user} }) => {
 
 Dashboard.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
-    deleteAccount: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
 };
