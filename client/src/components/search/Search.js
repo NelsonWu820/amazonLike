@@ -6,6 +6,7 @@ import { getItemByTag } from '../../actions/item';
 import ItemsHolder from '../Items/ItemsHolder'
 
 const Search = ({item: {items}, getItemByTag}) => {
+    //gets items by tag and sets item state to those with those tags only
     const { tag } = useParams();
     useEffect(() => {
         getItemByTag(tag);

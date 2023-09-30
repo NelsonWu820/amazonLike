@@ -17,6 +17,7 @@ function cartReducer(state = initialState, action){
                 loading: false
             }
         case CART_ITEM_ADDED:
+            //adds multiple objects to itemState from user
             const itemsState = payload.map((item) => ({
                 image: item.image,
                 title: item.title,
@@ -26,6 +27,7 @@ function cartReducer(state = initialState, action){
 
             return{
                 ...state,
+                //each object get spread first then the past cart so new items are on top
                 cart: [...itemsState, ...state.cart],
                 loading: false
             }
@@ -48,6 +50,7 @@ function cartReducer(state = initialState, action){
                 historyLoading: false
             }
         case HISTORY_ITEM_ADDED:
+            //adds multiple objects to cartState from user
             const cartState = payload.map((item) => ({
                 id: item.id,
                 image: item.image,
@@ -59,6 +62,7 @@ function cartReducer(state = initialState, action){
             return{
                 ...state,
                 cart: [],
+                //each object get spread first then the past cart so new items are on top
                 history: [...cartState, ...state.history],
                 historyLoading: false
             }

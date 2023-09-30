@@ -38,6 +38,7 @@ function App() {
     });
   }, []);
 
+  //navbar and alert are always present on the top
   return (
     <Provider store={store}>
       <Router>

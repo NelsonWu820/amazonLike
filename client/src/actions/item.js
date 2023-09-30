@@ -2,6 +2,7 @@ import { ITEMS_GET, ITEMS_ERROR, ITEM_GET, REMOVE_ITEM, COMMENT_ADDED, COMMENT_R
 import { setAlert } from "./alert";
 import api from '../utils/api';
 
+//gets all items
 export const getAllItems = () => async dispatch =>{
     try {
         const res = await api.get('/items')
@@ -18,6 +19,7 @@ export const getAllItems = () => async dispatch =>{
     }
 } 
 
+//gets an id by it's id
 export const getItemById = (id) => async (dispatch) => {
     try {
         const res = await api.get(`/items/${id}`);

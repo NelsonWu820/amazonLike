@@ -13,10 +13,12 @@ const Login = ({login, isAuthenticated}) => {
 
     const { email, password } = formData;
 
+    //every time a input is changed so is the form data
     const onChange = e => {
       setFormdata({...formData, [e.target.name]: e.target.value})
     }
 
+    //when submitted it will call login action
     const onSubmit = e => {
       e.preventDefault();
       login(email, password);

@@ -48,6 +48,7 @@ const ProfileForm = ({profile: {profile, loading}, getCurrentProfile, updateProf
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    //checks if the profile is still being edited if not it will update profile then move to dashboard
     const onSubmit = e => {
         const editing = profile ? true : false;
         e.preventDefault();

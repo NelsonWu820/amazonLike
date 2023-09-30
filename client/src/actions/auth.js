@@ -3,6 +3,7 @@ import api from "../utils/api";
 import { setAlert } from './alert'
 import setAuthToken from "../utils/setAuthToken";
 
+//loads user by checking if token is correct
 export const loadUser = () => async dispatch => {
 
     try {
@@ -21,6 +22,7 @@ export const loadUser = () => async dispatch => {
     }
 } 
 
+//registers the user
 export const register = (formData) => async dispatch => {
     
     try {
@@ -48,6 +50,7 @@ export const register = (formData) => async dispatch => {
     }
 }
 
+//login the user
 export const login = (email, password) => async dispatch => { 
     const body = { email, password}
     try {
@@ -76,6 +79,7 @@ export const login = (email, password) => async dispatch => {
     }
 }
 
+//logout and token to null
 export const logout = () => async dispatch =>{
     setAuthToken();
     dispatch({

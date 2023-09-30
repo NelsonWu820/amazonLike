@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+//same as Rating but for itemsHolder specifically
 const RatingItems = ({rating}) => {
     return (
         <div className="ratings-comment-section-holder">

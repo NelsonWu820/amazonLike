@@ -54,6 +54,7 @@ function itemReducer(state = initialState, action){
         case COMMENT_REMOVED:
             return{
                 ...state,
+                //takes just one comment from the user only and filters it out
                 item: {
                     ...state.item,
                     comments: state.item.comments.filter(

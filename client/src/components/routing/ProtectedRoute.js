@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-
+//checks if auth, if not go into login page
 const ProtectedRoute = ({ component: Component, auth: { isAuthenticated }}) => {
     if(isAuthenticated) return <Component/>
     return <Navigate to="/login" />;

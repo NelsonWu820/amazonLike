@@ -20,6 +20,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         setFormData({...formData,[e.target.name] : e.target.value});
     };
 
+    //will first check if passwords don't match
     const onSubmit = e => {
         e.preventDefault();
         if(password !== password2){

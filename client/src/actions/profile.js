@@ -2,6 +2,7 @@ import { PROFILE_GET, PROFILE_ERROR, PROFILE_UPDATE, ACCOUNT_DELETE, LOGOUT } fr
 import api from "../utils/api";
 import { setAlert } from "./alert";
 
+//gets current profile
 export const getCurrentProfile = () => async dispatch => {
     try {
         const res = await api.get('/profile/me')

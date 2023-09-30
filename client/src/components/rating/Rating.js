@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+//just changes star to orange if it's above or equal else black
 const Rating = ({rating}) => {
 
     return (
