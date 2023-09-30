@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCart } from '../../actions/cart';
 import { connect } from 'react-redux';
 import AuthLinks from './AuthLinks';
+import AuthLinksCart from './AuthLinksCart';
 
 const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLoading}}) => {
     useEffect(() => {
@@ -36,7 +37,6 @@ const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLo
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li className="nav-item"><Link className="nav-link active" aria-current="page" to="/">Home</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="#!">About</Link></li>
                     <li className="nav-item dropdown">
                         <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="bi bi-search"></i>Search Tags</Link>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -46,10 +46,13 @@ const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLo
                             <li><Link className="dropdown-item" to="search/women's clothing">Women's clothing</Link></li>
                         </ul>
                     </li>
-                    <li>
-                        {isAuthenticated && navbarLoading === false ? (<AuthLinks user={user} length={cart.length}/>): guestNav}
-                    </li>
                 </ul>
+                {isAuthenticated && navbarLoading === false ? (
+                    <Fragment>
+                        <AuthLinksCart length={cart.length}/>
+                        <AuthLinks user={user}/>
+                    </Fragment>
+                ): guestNav}
             </div>
         </div>
     </nav>
