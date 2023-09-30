@@ -13,19 +13,19 @@ const Navbar = ({getCart, cart : {cart}, auth : {isAuthenticated, user, navbarLo
 
     const guestNav = (
         <Fragment>
-            <Link className="btn btn-outline-dark" type="submit" to='/cart'>
-                <i className="bi-cart-fill me-1"></i>
-                    Cart
-                <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.length}</span>
-            </Link>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li className="nav-item">
-                    <Link className="nav-link active" to='/login'>Login</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link active" to='/register'>Sign up</Link>
-                </li>
-            </ul>
+            <li className="nav-item guest">
+                <Link className="btn btn-outline-dark" type="submit" to='/cart'>
+                    <i className="bi-cart-fill me-1"></i>
+                        Cart
+                    <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </Link>
+            </li>
+            <li className="nav-item guest">
+                <Link className="nav-link active" to='/login'>Login</Link>
+            </li>
+            <li className="nav-item guest">
+                <Link className="nav-link active" to='/register'>Sign up</Link>
+            </li>
         </Fragment>
     )
     
