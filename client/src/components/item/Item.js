@@ -31,7 +31,7 @@ const Item = ({getItemById, auth: {isAuthenticated}, item:{item, loading}}) => {
                                         <h4 className="card-title">Recent Comments</h4>
                                         <h6 className="card-subtitle">Latest Comments section by users</h6> </div>
                                         {item.comments.length > 0 ? (
-                                            item.comments.map((comment) => <ItemComment comment={comment}/>)
+                                            item.comments.map((comment) => <ItemComment comment={comment} key={comment._id}/>)
                                         ): (
                                             <h1>No comments yet</h1>
                                         )}
