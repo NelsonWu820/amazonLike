@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+require('dotenv').config();
 
 //a middleware to check if token is valid, i.e the user is auth
 module.exports = function (req, res, next) {
@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
     //tries to check if token is my jwt I gave and is not expired
     try{
-        jwt.verify(token, config.get("jwtSecret"), (error, decoded) => {
+        jwt.verify(token, process.env.jwtSecret, (error, decoded) => {
             if(error){
                 return res.status(401).json({ msg: "token is not valid"});
             }

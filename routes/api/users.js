@@ -4,8 +4,8 @@ const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
-const config = require("config");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 // @route POST api/user
 // @desc signs up the user if the email is not used and is a valid with its gravatar and inputs it into mongodb
@@ -65,7 +65,7 @@ router.post("/",
             };
 
             //creates jwt
-            jwt.sign( payload, config.get("jwtSecret"), {expiresIn: "5 days" }, (err, token) => {
+            jwt.sign( payload, process.env.jwtSecret, {expiresIn: "5 days" }, (err, token) => {
                 if (err) throw err;
                 res.json({token});
             })
