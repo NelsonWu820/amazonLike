@@ -5,43 +5,36 @@ import { deleteAccount } from '../../actions/profile';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const AuthLinks = ({deleteAccount, logout, user, length}) => (
-            <ul className="navbar  navbar-light bg-light">
-                <li className="nav-item">
-                    <Link className="btn btn-outline-dark" type="submit" to='/cart'>
-                        <i className="bi-cart-fill me-1"></i>
-                            Cart
-                        <span className="badge bg-dark text-white ms-1 rounded-pill">{length}</span>
-                    </Link>
-                </li>
+const AuthLinks = ({deleteAccount, logout, user}) => (
                 <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div className="p-2"><span className="round"><img src={user.avatar} alt="user" width="50"/></span></div>
-                        <div>{user.name}</div>
+                    <Link className="nav-link dropdown-toggle navbar-avatar p-2 d-flex align-items-center" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className="round p-2"><img src={user.avatar} alt="user" width="50"/></span>
+                            <div>{user.name}</div>
                     </Link>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <Link className="btn" type="submit" to='/history'>
+                            <Link className="dropdown-item btn" type="submit" to='/history'>
                                 <i className="bi-cart-fill me-1"></i>
                                     Purchase History
                             </Link>
                         </li>
                         <li>
-                            <Link className="btn" type="submit" to='/dashboard'>
+                            <Link className="dropdown-item btn" type="submit" to='/dashboard'>
                                 DashBoard
                             </Link>
                         </li>
-                        <li>
-                            <button onClick={() => deleteAccount()}>
-                                Delete Account
+                        <li className="deleteAccount">
+                            <button className="dropdown-item btn" onClick={() => deleteAccount()}>
+                                <div className="deleteAccount-text">
+                                    Delete Account
+                                </div>
                             </button>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link active" onClick={logout} to='/'>Logout</Link>
+                        <li>
+                            <Link className="dropdown-item btn" onClick={logout} to='/'>Logout</Link>
                         </li>
                     </ul>
                 </li>
-            </ul>
 );
 
 
