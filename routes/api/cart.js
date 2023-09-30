@@ -14,7 +14,13 @@ router.get("/", auth,
     async (req, res) => {
         const cart = await Cart.findOne({ user : req.user.id });
         try {
-            res.json(cart.items);
+            //if use has no cart return [] for err messages
+            if(!cart){
+                res.json([]);
+            }
+            else{
+                res.json(cart.items);
+            }
         } catch (error) {
             console.error(error.message);
             return res.status(500).send("Server Error");
