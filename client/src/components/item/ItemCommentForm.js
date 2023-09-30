@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {addComment, deleteComment} from '../../actions/item'
@@ -18,7 +18,6 @@ const ItemCommentForm = ({setAlert, addComment, deleteComment, id, auth: {user: 
     
     //if the have a commment already fill in the state and don't let them edit it only delete
     const checkComment = (user_id) => {
-        console.log(item.comments.length);
         answer = false;
         if(item.comments.length === 0) {
             return answer;
@@ -28,7 +27,6 @@ const ItemCommentForm = ({setAlert, addComment, deleteComment, id, auth: {user: 
                 setFormData({...formData, text: comment.text, rating: comment.rating})
                 setCheck(true)
                 answer = true;
-                return answer;
             }
         })
         setCheck(answer);
@@ -77,7 +75,7 @@ const ItemCommentForm = ({setAlert, addComment, deleteComment, id, auth: {user: 
                 <form className="commentform"> 
                     <div className="row">
                         <div className="col-2">
-                            <img src={avatar} width="70" className="rounded-circle mt-2"/>
+                            <img src={avatar} width="70" className="rounded-circle mt-2" alt='...broken'/>
                         </div>
                         <div className="col-10">
                             <div className="comment-box ml-2">
@@ -134,13 +132,13 @@ const ItemCommentForm = ({setAlert, addComment, deleteComment, id, auth: {user: 
                     }}> 
                     <div className="row">
                         <div className="col-2">
-                            <img src={avatar} width="70" className="rounded-circle mt-2"/>
+                            <img src={avatar} width="70" className="rounded-circle mt-2" alt='...broken'/>
                         </div>
                         <div className="col-10">
                             <div className="comment-box ml-2">
                                 <h4>Add a comment</h4>
-                                {/*fragment calls changeStar to force the rest of the span to use the updated rating i.e 0*/}
-                                <Fragment style={changeStar(5)}></Fragment>
+                                {/*calls changeStar to force the rest of the span to use the updated rating i.e 0*/}
+                                <div style={changeStar(5)} hidden={true}></div>
                                 <div className="ratings-wrapper"> 
                                     <div className='ratings'>
                                         <span style={changeStar(5)} onClick={() => onClick(5)}>★</span>
@@ -174,7 +172,6 @@ const ItemCommentForm = ({setAlert, addComment, deleteComment, id, auth: {user: 
 ItemCommentForm.propTypes = {
     addComment: PropTypes.func.isRequired,
     deleteComment: PropTypes.func.isRequired,
-    getItemById: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired,
 };
 
