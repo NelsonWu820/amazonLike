@@ -1,4 +1,4 @@
-import { PROFILE_GET, PROFILE_ERROR, PROFILE_UPDATE, ACCOUNT_DELETE } from "../actions/types";
+import { PROFILE_GET, PROFILE_ERROR, PROFILE_UPDATE, ACCOUNT_DELETE, LOGOUT } from "../actions/types";
 
 const initalState = {
     profile: null,
@@ -23,6 +23,7 @@ function profileReducer(state = initalState, action){
                 error: payload
             }
         case ACCOUNT_DELETE:
+        case LOGOUT:
             return {
                 profile: null,
                 loading: false,
