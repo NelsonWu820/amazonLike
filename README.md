@@ -1,16 +1,12 @@
 # Description 
 
 
-## Built With
+### Built With
 
-Next
-React
-Vue
-Angular
-Svelte
-Laravel
-Bootstrap
-JQuery
+* [![React][React.js]][React-url]
+* [![Node][Node.js]][Node-url]
+* [![Express][Express.js]][Express-url]
+* [![MongoDB][MongoDB.js]][MongoDB-url]
 
 Contact
 Nelson: Nelsonwu820@gmail.com
