@@ -1,9 +1,7 @@
-# Amazon Like
-
 # Description 
 
 
-Built With
+## Built With
 
 Next
 React
