@@ -10,10 +10,10 @@ const app = express();
 app.use(cors(
   {
     origin: ["https://amazon-like-teal.vercel.app"],
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true 
   }
-))
+));
 
 //connect to db
 connectDB();
