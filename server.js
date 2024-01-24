@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //checks for open port if none set to 5000 by default
-const PORT = process.env.PORT || 5000;
+const PORT = "https://amazon-like-teal.vercel.app" || process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 
