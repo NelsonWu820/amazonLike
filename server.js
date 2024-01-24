@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   
     //gets the index.html from client/build
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve('client', 'build', 'index.html'));
+      res.sendFile(path.resolve('var', 'task', 'client', 'build', 'index.html'));
     });
 }
 
