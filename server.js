@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
   
     //gets the index.html from client/build
+    //for vercel deployment
     app.get('*', (req, res) => {
       res.sendFile(path.resolve('var', 'task', 'client', 'build', 'index.html'));
     });
