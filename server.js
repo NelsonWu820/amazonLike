@@ -35,12 +35,12 @@ if (process.env.NODE_ENV === 'production') {
   
     //gets the index.html from client/build
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+      res.sendFile(path.resolve('var', 'task', 'client', 'build', 'index.html'));
     });
 }
 
 //checks for open port if none set to 5000 by default
-const PORT = process.env.PORT || 5000;
+const PORT = "https://amazon-like-teal.vercel.app" || process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 
