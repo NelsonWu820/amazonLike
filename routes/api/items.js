@@ -16,6 +16,7 @@ router.get("/",
         try {
             return res.json(items);
         } catch (err) {
+            console.log(res.json(items))
             console.error(err.message);
             return res.status(500).json({ error : "Server Error"});
         }
