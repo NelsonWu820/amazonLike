@@ -1,6 +1,4 @@
 {
-  "homepage": "https://amazon-like-frontend.vercel.app",
-  "private": true,
   "name": "amazonlike",
   "version": "1.0.0",
   "description": "A test for my express/node.js skills",
