@@ -6,6 +6,7 @@ import { LOGOUT } from '../actions/types';
 const api = axios.create({
   baseURL: 'https://amazon-like-server.vercel.app',
   headers: {
+    'CORS_ALLOWED_ORIGINS': "true",
     'Content-Type': 'application/json'
   }
 });
