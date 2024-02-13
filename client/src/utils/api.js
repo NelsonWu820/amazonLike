@@ -3,9 +3,8 @@ import store from '../store';
 import { LOGOUT } from '../actions/types';
 
 // Create an instance of axios
-const api = axios.create({
+const api = axios.create('https://amazon-like-server.vercel.app', {
   //since vercel changes url will it connect?
-  baseURL: 'https://amazon-like-server.vercel.app',
   headers: {
     'Access-Control-Allow-Origin': "true",
     'CORS_ALLOWED_ORIGINS': "true",
