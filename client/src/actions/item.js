@@ -5,7 +5,7 @@ import api from '../utils/api';
 //gets all items
 export const getAllItems = () => async dispatch =>{
     try {
-        const res = await api.get('z/items')
+        const res = await api.get('/items')
 
         dispatch({
             type: ITEMS_GET,
