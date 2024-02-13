@@ -7,7 +7,7 @@ import setAuthToken from "../utils/setAuthToken";
 export const loadUser = () => async dispatch => {
 
     try {
-        const res = await api.get('/auth');
+        const res = await api.get('https://amazon-like-server.vercel.app/auth');
 
         dispatch({
             type: USER_LOADED,
@@ -26,7 +26,7 @@ export const loadUser = () => async dispatch => {
 export const register = (formData) => async dispatch => {
     
     try {
-        const res = await api.post('/users', formData);
+        const res = await api.post('https://amazon-like-server.vercel.app/users', formData);
         setAuthToken(res.data.token);
 
         dispatch({
@@ -54,7 +54,7 @@ export const register = (formData) => async dispatch => {
 export const login = (email, password) => async dispatch => { 
     const body = { email, password}
     try {
-        const res = await api.post('/auth', body);
+        const res = await api.post('https://amazon-like-server.vercel.app/auth', body);
 
         dispatch({
             type: LOGIN_SUCCESS,

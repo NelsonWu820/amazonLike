@@ -5,7 +5,7 @@ import { setAlert } from "./alert";
 //gets current profile
 export const getCurrentProfile = () => async dispatch => {
     try {
-        const res = await api.get('/profile/me')
+        const res = await api.get('https://amazon-like-server.vercel.app/profile/me')
 
         dispatch({
             type: PROFILE_GET,
@@ -28,7 +28,7 @@ export const getCurrentProfile = () => async dispatch => {
 //make or update a profile
 export const updateProfile = (formData, edit = false) => async dispatch => {
     try {
-        const res = api.post('/profile/edit', formData);
+        const res = api.post('https://amazon-like-server.vercel.app/profile/edit', formData);
 
         dispatch({
             type: PROFILE_UPDATE,
@@ -56,7 +56,7 @@ export const updateProfile = (formData, edit = false) => async dispatch => {
 export const deleteAccount = () => async dispatch => {
     if(window.confirm('This can not be undone')){
         try {
-            await api.delete('/profile');
+            await api.delete('https://amazon-like-server.vercel.app/profile');
     
             dispatch({type: ACCOUNT_DELETE})
             dispatch({type: LOGOUT})

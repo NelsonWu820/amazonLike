@@ -3,7 +3,7 @@ import store from '../store';
 import { LOGOUT } from '../actions/types';
 
 // Create an instance of axios
-const api = axios.create('https://amazon-like-server.vercel.app', {
+const api = axios.create({
   //since vercel changes url will it connect?
   headers: {
     'Access-Control-Allow-Origin': "true",
