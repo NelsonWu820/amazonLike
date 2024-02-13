@@ -5,7 +5,7 @@ import api from '../utils/api';
 export const getCart = () => async dispatch => {
 
     try {
-        const res = await api.get('https://amazon-like-server.vercel.app/cart');
+        const res = await api.get('/cart');
 
         dispatch({
             type: CART_GET,
@@ -20,7 +20,7 @@ export const getCart = () => async dispatch => {
 export const cartAddItem = (amount, itemId) => async dispatch => {
 
         try {
-            const res = await api.put(`https://amazon-like-server.vercel.app/cart/${itemId}`, amount);
+            const res = await api.put(`/cart/${itemId}`, amount);
 
             dispatch({
                 type: CART_ITEM_ADDED,
@@ -38,7 +38,7 @@ export const cartAddItem = (amount, itemId) => async dispatch => {
 export const cartRemoveItem = (id) => async dispatch => {
 
         try {
-            const res = await api.delete(`https://amazon-like-server.vercel.app/cart/${id}`);
+            const res = await api.delete(`/cart/${id}`);
 
             dispatch({
                 type: CART_ITEM_DELTED,
@@ -57,7 +57,7 @@ export const historyAddItem = (cart) => async dispatch => {
     try {
 
         let jsonCart = JSON.stringify(cart);
-        const res = await api.post('https://amazon-like-server.vercel.app/cart/history', jsonCart);
+        const res = await api.post('/cart/history', jsonCart);
 
         dispatch({
             type: HISTORY_ITEM_ADDED,
@@ -71,7 +71,7 @@ export const historyAddItem = (cart) => async dispatch => {
 //get history
 export const getHistory = () => async dispatch => {
     try {
-        const res = await api.get('https://amazon-like-server.vercel.app/cart/history');
+        const res = await api.get('/cart/history');
 
         dispatch({
             type: HISTORY_GET,

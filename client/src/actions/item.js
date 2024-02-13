@@ -5,7 +5,7 @@ import api from '../utils/api';
 //gets all items
 export const getAllItems = () => async dispatch =>{
     try {
-        const res = await api.get('https://amazon-like-server.vercel.app/items')
+        const res = await api.get('z/items')
 
         dispatch({
             type: ITEMS_GET,
@@ -22,7 +22,7 @@ export const getAllItems = () => async dispatch =>{
 //gets an id by it's id
 export const getItemById = (id) => async (dispatch) => {
     try {
-        const res = await api.get(`https://amazon-like-server.vercel.app/items/${id}`);
+        const res = await api.get(`/items/${id}`);
 
         dispatch({
             type: ITEM_GET,
@@ -40,7 +40,7 @@ export const getItemById = (id) => async (dispatch) => {
 //get items by there tag
 export const getItemByTag = (tag) => async (dispatch) => {
     try {
-        const res = await api.get(`https://amazon-like-server.vercel.app/items/search/${tag}`);
+        const res = await api.get(`/items/search/${tag}`);
 
         dispatch({
             type: ITEMS_GET,
@@ -58,7 +58,7 @@ export const getItemByTag = (tag) => async (dispatch) => {
 //add comment with item id
 export const addComment = (id, formData) => async (dispatch) => {
     try {
-        const res = await api.post(`https://amazon-like-server.vercel.app/items/comments/${id}`, formData);
+        const res = await api.post(`/items/comments/${id}`, formData);
 
         dispatch({
             type: COMMENT_ADDED,
@@ -78,7 +78,7 @@ export const addComment = (id, formData) => async (dispatch) => {
 //delete comment with item id
 export const deleteComment = (id, comment_id) => async (dispatch) => {
     try {
-        const res = await api.delete(`https://amazon-like-server.vercel.app/items/comments/${id}/${comment_id}`);
+        const res = await api.delete(`/items/comments/${id}/${comment_id}`);
 
         dispatch({
             type: COMMENT_REMOVED,
