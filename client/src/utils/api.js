@@ -7,13 +7,9 @@ const api = axios.create({
   //since vercel changes url will it connect?
   baseURL: 'https://amazon-like-server.vercel.app',
   headers: {
-    'Access-Control-Allow-Origin': "true",
-    'CORS_ALLOWED_ORIGINS': "true",
     'Content-Type': 'application/json'
   }
 });
-
-axios.defaults.withCredentials = true;
 /*
   NOTE: intercept any error responses from the api
  and check if the token is no longer valid.
