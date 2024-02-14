@@ -6,6 +6,7 @@ import api from '../utils/api';
 export const getAllItems = () => async dispatch =>{
     try {
         const res = await api.get('/items')
+        console.log(res.data)
 
         dispatch({
             type: ITEMS_GET,
