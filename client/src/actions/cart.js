@@ -12,6 +12,7 @@ export const getCart = () => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.log("Add Cart Error:", err);
     }
 } 
 
@@ -26,7 +27,7 @@ export const cartAddItem = (amount, itemId) => async dispatch => {
                 payload: res.data
             });
         } catch (err) {
-
+            console.log("Add Cart Error:", err);
     
         
     }
@@ -44,7 +45,7 @@ export const cartRemoveItem = (id) => async dispatch => {
                 payload: res.data
             });
         } catch (err) {
-
+            console.log("Delete Cart Error:", err);
     
         
     }
@@ -63,6 +64,7 @@ export const historyAddItem = (cart) => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.log("Add History Error:", err);
     }
 } 
 
@@ -76,5 +78,6 @@ export const getHistory = () => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.log("Add History Error:", err);
     }
 } 

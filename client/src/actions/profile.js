@@ -12,6 +12,7 @@ export const getCurrentProfile = () => async dispatch => {
             payload: res.data
         })
     } catch (err) {
+        z
         const errors = err.response.data.errors;
 
         if (errors) {
@@ -38,6 +39,7 @@ export const updateProfile = (formData, edit = false) => async dispatch => {
             setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
         );
     } catch (err) {
+        z
         const errors = err.response.data.errors;
 
         if (errors) {
@@ -61,7 +63,7 @@ export const deleteAccount = () => async dispatch => {
     
             dispatch(setAlert("Profile Deleted", 'deleted'))
         } catch (err) {
-
+            z
             const errors = err.response.data.errors;
     
             if (errors) {

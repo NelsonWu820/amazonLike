@@ -14,6 +14,7 @@ export const loadUser = () => async dispatch => {
             payload: res.data
         })
     } catch (err) {
+        console.log("Load User Error:", err)
         
         dispatch({
             type: AUTH_ERROR
@@ -35,6 +36,7 @@ export const register = (formData) => async dispatch => {
 
         dispatch(loadUser());
     } catch (err) {
+        console.log("Register Error:", err);
         const errors = err.response.data.errors;
 
         if (errors) {
@@ -63,6 +65,7 @@ export const login = (email, password) => async dispatch => {
 
         dispatch(loadUser());
     } catch (err) {
+        console.log("Login Error:", err);
         const errors = err.response.data.errors;
 
         if(errors){
