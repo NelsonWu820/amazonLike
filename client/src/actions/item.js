@@ -12,7 +12,6 @@ export const getAllItems = () => async dispatch =>{
             payload: res.data
         })
     } catch (err) {
-        z
         dispatch({
             type: ITEMS_ERROR
         })
@@ -30,7 +29,6 @@ export const getItemById = (id) => async (dispatch) => {
         });
 
     } catch (err) {
-        z
         dispatch({
             type: ITEMS_ERROR
         })
@@ -48,7 +46,6 @@ export const getItemByTag = (tag) => async (dispatch) => {
         });
 
     } catch (err) {
-        z
         dispatch({
             type: ITEMS_ERROR
         })
@@ -66,7 +63,6 @@ export const addComment = (id, formData) => async (dispatch) => {
         });
 
     } catch (err) {
-        z
         const errors = err.response.data.errors;
 
         if(errors){
@@ -86,7 +82,6 @@ export const deleteComment = (id, comment_id) => async (dispatch) => {
         });
 
     } catch (err) {
-        z
         
     }
 }
