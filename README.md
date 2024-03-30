@@ -2,7 +2,7 @@
 ---place gif
 
 # Description
-
+A full web application that is running on the MERN stack using redux to help handle global states.
 
 ### Built With
 
