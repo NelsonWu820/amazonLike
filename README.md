@@ -7,9 +7,8 @@ A full web application that is running on the MERN stack using redux to help han
 ### Built With
 
 * [![React][React.js]][React-url]
-* [![Node][Node.js]][Node-url]
 * [![Express][Express.js]][Express-url]
-* [![MongoDB][MongoDB.js]][MongoDB-url]
+* ![MongoDB](dist/mongodb-leaf_16x16.png)
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 Contact
