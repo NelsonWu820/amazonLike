@@ -2,7 +2,7 @@
 ---place gif
 
 # Description
-A full web application that is running on the MERN stack using redux to help handle global states.
+A full web application that simulates the Amazon purchasing experience with features such as buying items, seeing past user's comments and ratings, seeing past purchases, and rating products yourself. A full-stack application running on the MERN stack using React as the front-end library and redux to help handle global states. Here MongoDB will be used to store data until the user deletes their account. While Node and the Express  framework are used as the back-end server.
 
 ### Built With
 
