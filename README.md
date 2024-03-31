@@ -7,18 +7,28 @@ A full web application that simulates the Amazon purchasing experience with feat
 ### Built With
 
 * [![React][React.js]][React-url]
-* [![Express][Express.js]][Express-url]
-* ![MongoDB](dist/mongodb-leaf_16x16.png)
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![Node][Node.js]][Node-url]
+* [![Express][Express.js]][Express-url]
+* [![MongoDB][MongoDB.com]][MongoDB-url]
+* [![Vercel][Vercel.com]][Vercel-url]
+
 
 Contact
-Nelson: Nelsonwu820@gmail.com
-Live Link(Might take a while to load): 
+Nelson: Nelsonwu820@gmail.com <br />
+Live Link: https://developer-network-frontend.vercel.app/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Node.js]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Node-url]: https://nodejs.org/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
+[Node.js]: https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/
+[Express.js]: https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB
+[Express-url]: https://expressjs.com/
+[MongoDB.com]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/
+[Vercel.com]: https://img.shields.io/badge/Vercel-%23000000.svg?logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
+
