@@ -16,7 +16,7 @@ A full web application that simulates the Amazon purchasing experience with feat
 
 Contact
 Nelson: Nelsonwu820@gmail.com <br />
-Live Link: https://developer-network-frontend.vercel.app/
+Live Link: https://amazon-like-frontend.vercel.app/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
